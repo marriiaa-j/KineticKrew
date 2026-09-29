@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+<<<<<<< HEAD
 import {
+=======
+import{
+>>>>>>> 901c7e2 (testing)
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
@@ -21,12 +25,19 @@ const router = createBrowserRouter([
     element: <Contact/>,
   },
 ]);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 901c7e2 (testing)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+<<<<<<< HEAD
     <RouterProvider router={router} />
+=======
+    <RouterProvider router = {router} />
+>>>>>>> 901c7e2 (testing)
   </React.StrictMode>
 );
 

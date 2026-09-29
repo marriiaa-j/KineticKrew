@@ -1,7 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 
+=======
+import { Link
+
+ } from 'react-router-dom';
+>>>>>>> 901c7e2 (testing)
 function Contact() {
   return (
     <div className="App">
@@ -15,4 +21,7 @@ function Contact() {
 }
 
 export default Contact;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 901c7e2 (testing)

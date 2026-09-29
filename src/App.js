@@ -19,10 +19,14 @@ function App() {
         >
           Learn React
         </a>
+<<<<<<< HEAD
 
         <Link to={'/contact'}>Contact PAGE Link</Link>
 
 
+=======
+        <Link to={'/contact'}>Contact PAGE Link</Link>
+>>>>>>> 901c7e2 (testing)
       </header>
     </div>
   );
