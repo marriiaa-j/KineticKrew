@@ -16,10 +16,10 @@
 }
 
 button {
-  padding: 12px 24px;
+  padding: 15px 24px;
   border: none;
   border-radius: 8px;
   color: #1a1198;
   cursor: pointer;
-
+  margin: 4px 5px;
 }

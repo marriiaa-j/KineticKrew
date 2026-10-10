@@ -12,6 +12,7 @@ function App() {
           <h2>It starts here: Kinetic Krew</h2>
           <p>Your application dashboard is loading..</p>
           <button>Get Started</button>
+          <button type="button" class="google sign-in">Sign-in with Google Account</button>
         </section>
     </main>
   );
