@@ -4,13 +4,16 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: linear-gradient(135deg, #3712dc, #3712dc);
+  box-sizing: border-box;
+  background-color: 135deg, #15152b, #33245c;
 }
 
 .signin-card {
   width: 100%;
   max-width: 420px;
+  margin: 0 auto;
   padding: 40px;
+  box-sizing: border-box;
   border-radius: 18px;
   background-color: white;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);

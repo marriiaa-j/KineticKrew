@@ -10,7 +10,7 @@ function SignIn() {
         event.preventDefault();
 
         // Temporary until authentication is connected
-        alert( 'Signing in as ${emailOrUsername}');
+        alert( 'Signing in as {emailOrUsername}');
     }
 
     function handleGoogleLogin(){
@@ -19,7 +19,7 @@ function SignIn() {
     return ( 
         <main className="sign-page">
             <section className="signin-card">
-                <h1>Welcome Back</h1>
+                <h1>Welcome Back!</h1>
                 <p className= "signin-card_subtitle">Sign in to your KineticKrew account</p>
 
                 <form onSubmit={handleSubmit}>
