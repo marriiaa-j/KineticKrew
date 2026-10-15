@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 
 function App() {
   return (
@@ -18,10 +19,12 @@ function App() {
         >
           Learn React
         </a>
-
+        <br />
         <Link to={'/contact'}>Contact PAGE Link</Link>
-        <Link to="/signin">Go to Sign In</Link>
-
+        <br />
+        <Link to="/SignIn">Go to Sign In</Link>
+        <br />
+        <Link to={'/Questionnaire'}>Questionnaire</Link>
 
       </header>
     </div>
