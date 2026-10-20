@@ -21,7 +21,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL:'http://localhost:3000',
+    callbackURL:'http://localhost:8000/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) =>{
     return done(null, profile);
 }
@@ -45,15 +45,19 @@ app.get("/auth/google/callback", passport.authenticate('google', {failureRedirec
 })
 
 app.get("/profile",(req, res)=>{
-    res.send('Welcome ${req.user.displayName}');
+    if (!req.user) return res.redirect('/');
+    res.send(`Welcome ${req.user.displayName}`);
 });
 
 //logout route
-app.get("/logout", (req,res) => {
-    req.logOut();
-    res.redirect("/");
+app.get("/logout", (req,res, next) => {
+    //callback 
+    req.logOut((err)=>{
+        if (err) return next(err);
+         res.redirect("/");
+    });
 });
 
-app.listen(3000,()=>{
-    console.log('Server is running at port 30000');
+app.listen(8000,()=>{
+    console.log('Server is running at port 80000');
 });
