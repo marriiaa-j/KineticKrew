@@ -49,6 +49,30 @@ app.get("/api/exercises/:id", async (req, res) => {
   }
 });
 
+app.post("/api/exercises", async (req, res) => {
+  const { name, muscle_group, equipment } = req.body || {};
+
+  if (!name || !muscle_group) {
+    return res.status(400).json({ error: "name and muscle_group are required" });
+  }
+
+  try {
+    const [result] = await db.query(
+      "INSERT INTO exercises (name, muscle_group, equipment) VALUES (?, ?, ?)",
+      [name, muscle_group, equipment || null]
+    );
+
+    const [rows] = await db.query("SELECT * FROM exercises WHERE id = ?", [result.insertId]);
+    res.status(201).json(rows[0]);
+  } catch (err) {
+    if (err.code === "ER_DUP_ENTRY") {
+      return res.status(409).json({ error: "An exercise with that name already exists" });
+    }
+    console.error(err);
+    res.status(500).json({ error: "Failed to add exercise" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
