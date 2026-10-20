@@ -2,16 +2,16 @@ import logo from './logo.svg';
 import './App.css';
 import { Link } from 'react-router-dom';
 
-function Contact() {
+function Homepage() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>Contact Page</div>
+        <div>Home Page</div>
 
-        <Link to={'/'}>Home page</Link>
+        <Link to={'/'}>main page</Link>
       </header>
     </div>
   );
 }
 
-export default Contact;
+export default Homepage;
