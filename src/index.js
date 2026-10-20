@@ -1,16 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider, } from "react-router-dom";
+
 import './index.css';
+
 import App from './App';
+import Contact from './Contact';
 import SignIn from './SignIn';
 import SignUp from './SignUp' ;
 import reportWebVitals from './reportWebVitals';
+<<<<<<< HEAD
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import Contact from './Contact';
+=======
+import Questionnaire from './Questionnaire';
+>>>>>>> 76284b4493b9c983e97f1e36d349ae9040b3faa9
 
 
 
@@ -30,14 +38,21 @@ const router = createBrowserRouter([
     path: "/contact",
     element: <Contact/>,
   },
-
+  {
+    path: "/SignIn",
+    element: <SignIn/>,
+  },
+  {
+    path: '/questionnaire',
+    element: <Questionnaire />,
+  },
 ]);
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router = {router} />
   </React.StrictMode>
 );
 
