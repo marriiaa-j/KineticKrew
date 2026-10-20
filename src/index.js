@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import SignIn from './SignIn';
+import SignUp from './SignUp' ;
 import reportWebVitals from './reportWebVitals';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -20,6 +22,10 @@ const router = createBrowserRouter([
   {path: "/signin",
     element: <SignIn/>,
   },
+  {
+  path: "/signup",
+  element: <SignUp />,
+},
   {
     path: "/contact",
     element: <Contact/>,

@@ -21,6 +21,7 @@ function App() {
 
         <Link to={'/contact'}>Contact PAGE Link</Link>
         <Link to="/signin">Go to Sign In</Link>
+        <Link to="/signup">Go to Sign Up</Link>
 
 
       </header>
