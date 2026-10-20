@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import SignIn from './SignIn';
 import SignUp from './SignUp' ;
+import ForgotPassword from "./ForgotPassword";
+
 import reportWebVitals from './reportWebVitals';
 
 import {
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
   {path: "/signin",
     element: <SignIn/>,
   },
+  {
+  path: "/forgot-password",
+  element: <ForgotPassword />,
+},
   {
   path: "/signup",
   element: <SignUp />,
