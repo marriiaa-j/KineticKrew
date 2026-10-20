@@ -9,16 +9,13 @@ import Contact from './Contact';
 import SignIn from './SignIn';
 import SignUp from './SignUp' ;
 import reportWebVitals from './reportWebVitals';
-<<<<<<< HEAD
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import Contact from './Contact';
-=======
 import Questionnaire from './Questionnaire';
->>>>>>> 76284b4493b9c983e97f1e36d349ae9040b3faa9
 
 
 
