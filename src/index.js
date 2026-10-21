@@ -5,11 +5,12 @@ import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import './index.css';
 
 import App from './App';
-import Contact from './Contact';
+import Homepage from './Homepage';
 import SignIn from './SignIn';
 import SignUp from './SignUp' ;
 import reportWebVitals from './reportWebVitals';
 import Questionnaire from './Questionnaire';
+
 
 const router = createBrowserRouter([
   {
@@ -21,8 +22,8 @@ const router = createBrowserRouter([
   element: <SignUp />,
 },
   {
-    path: "/contact",
-    element: <Contact/>,
+    path: "/homepage",
+    element: <Homepage/>,
   },
   {
     path: "/SignIn",
