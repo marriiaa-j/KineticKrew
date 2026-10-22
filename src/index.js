@@ -5,23 +5,26 @@ import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import './index.css';
 
 import App from './App';
-import Homepage from './Homepage';
+import reportWebVitals from './reportWebVitals';
+import LandingPage from './LandingPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp' ;
-import reportWebVitals from './reportWebVitals';
 import Questionnaire from './Questionnaire';
-
-
+import Homepage from './Homepage';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <App />,
+  },
+  {
+    path: "/landingpage",
+    element: <LandingPage />,
   },
   {
   path: "/signup",
   element: <SignUp />,
-},
+  },
   {
     path: "/homepage",
     element: <Homepage/>,
