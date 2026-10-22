@@ -8,6 +8,8 @@ import App from './App';
 import Contact from './Contact';
 import SignIn from './SignIn';
 import SignUp from './SignUp' ;
+import ForgotPassword from "./ForgotPassword";
+import ForgotUsername from "./ForgotUsername";
 import reportWebVitals from './reportWebVitals';
 <<<<<<< HEAD
 
@@ -27,6 +29,15 @@ const router = createBrowserRouter([
     path: "/",
     element: <App/>,
   },
+  {
+  path: "/forgot-password",
+  element: <ForgotPassword />,
+ 
+},
+{
+  path: "/forgot-username",
+  element: <ForgotUsername />,
+},
   {
   path: "/signup",
   element: <SignUp />,
