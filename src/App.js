@@ -19,13 +19,15 @@ function App() {
         >
           Learn React
         </a>
-        <br />
+          <br />
         <Link to={'/contact'}>Contact PAGE Link</Link>
-        <br />
+          <br />
         <Link to="/SignIn">Go to Sign In</Link>
-        <br />
+          <br />
         <Link to={'/Questionnaire'}>Questionnaire</Link>
+           <br />
         <Link to="/signin">Go to Sign In</Link>
+           <br />
         <Link to="/signup">Go to Sign Up</Link>
 
 
