@@ -30,9 +30,9 @@ function SignUp() {
     alert(`Account created for ${formData.username}`);
   }
 
-  function handleGoogleSignup() {
-    alert("Google sign-up will be connected later.");
-  }
+  function handleGoogleLogin(){
+       window.location.href = 'http://localhost:8000/auth/google';
+    }
 
   return (
     <main className="signin-page">
@@ -114,7 +114,7 @@ function SignUp() {
         <button
           className="google-button"
           type="button"
-          onClick={handleGoogleSignup}
+          onClick={handleGoogleLogin}
         >
           Sign Up with Google
         </button>
