@@ -9,12 +9,12 @@ function SignIn() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        // Temporary until authentication is connected
-        alert( 'Signing in as {emailOrUsername}');
+        // updated for profile signin -CM 
+        alert( `Signing in as ${emailOrUsername}`);
     }
 
     function handleGoogleLogin(){
-        alert("Google login will be connected...");
+       window.location.href = 'http://localhost:8000/auth/google';
     }
     return ( 
         <main className="sign-page">
@@ -53,10 +53,8 @@ function SignIn() {
                 <div className="divider">
                     <span> or </span>
                 </div>
-                <button className="google-button"
-                type="button"
-                onClick={handleGoogleLogin}
-                >
+
+                <button className="google-button" type="button" onClick={handleGoogleLogin}>
                     Sign in with Google
                 </button>
 
