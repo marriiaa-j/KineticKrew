@@ -9,6 +9,8 @@ import reportWebVitals from './reportWebVitals';
 import LandingPage from './LandingPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp' ;
+import ForgotPassword from "./ForgotPassword";
+import ForgotUsername from "./ForgotUsername";
 import Questionnaire from './Questionnaire';
 import Homepage from './Homepage';
 
@@ -24,6 +26,15 @@ const router = createBrowserRouter([
     path: "/landingpage",
     element: <LandingPage />,
   },
+  {
+  path: "/forgot-password",
+  element: <ForgotPassword />,
+ 
+},
+{
+  path: "/forgot-username",
+  element: <ForgotUsername />,
+},
   {
   path: "/signup",
   element: <SignUp />,
