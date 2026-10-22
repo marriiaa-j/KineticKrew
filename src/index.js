@@ -12,6 +12,9 @@ import SignUp from './SignUp' ;
 import Questionnaire from './Questionnaire';
 import Homepage from './Homepage';
 
+
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +47,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <RouterProvider router = {router} />
+
   </React.StrictMode>
 );
 
