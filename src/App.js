@@ -19,15 +19,18 @@ function App() {
           Learn React
         </a>
         <br />
-        <Link to={'/homepage'}>Homepage</Link>
+        <Link to="/landingpage">Landing Page</Link>
         <br />
         <Link to="/SignIn">Go to Sign In</Link>
         <br />
-        <Link to={'/Questionnaire'}>Questionnaire</Link>
+        <Link to="/Questionnaire">Questionnaire</Link>
         <br />
         <Link to="/signin">Go to Sign In</Link>
         <br />
         <Link to="/signup">Go to Sign Up</Link>
+        <br />
+        <Link to="/homepage">Homepage</Link>
+        <br />
 
 
       </header>

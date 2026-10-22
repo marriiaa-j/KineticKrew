@@ -5,22 +5,37 @@ import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import './index.css';
 
 import App from './App';
-import Homepage from './Homepage';
+import reportWebVitals from './reportWebVitals';
+import LandingPage from './LandingPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp' ;
-import reportWebVitals from './reportWebVitals';
+import ForgotPassword from "./ForgotPassword";
+import ForgotUsername from "./ForgotUsername";
 import Questionnaire from './Questionnaire';
-
+import Homepage from './Homepage';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <App />,
   },
+  {
+    path: "/landingpage",
+    element: <LandingPage />,
+  },
+  {
+  path: "/forgot-password",
+  element: <ForgotPassword />,
+ 
+},
+{
+  path: "/forgot-username",
+  element: <ForgotUsername />,
+},
   {
   path: "/signup",
   element: <SignUp />,
-},
+  },
   {
     path: "/homepage",
     element: <Homepage/>,
