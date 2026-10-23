@@ -1,50 +1,139 @@
+import './Questionnaire.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Questionnaire() {
-  const [fitnessLevel, setFitnessLevel] = useState('');
-  const [fitnessGoals, setFitnessGoals] = useState([]);
+  const navigate = useNavigate();
+  //Profile Questions
+  const [sex, setSex] = useState(''); //Question 1
+  const [age, setAge] = useState(''); //Question 2
+  const [heightFeet, setHeightFeet] = useState(''); //Question 3
+  const [heightInches, setHeightInches] = useState(''); //Question 3
+  const [weight, setWeight] = useState(''); //Question 4
 
-  function toggleFitnessGoals(goal) {
-  setFitnessGoals((currentGoals) => {
-    if (currentGoals.includes(goal)) {
-      return currentGoals.filter((item) => item !== goal);
-    }
-
-    return [...currentGoals, goal];
-  });
-}
   return (
-    <div>
-      <h1>Fitness Questionnaire</h1>
+    <div className="questionnaire-container">
+      <h1>Profile Questionnaire</h1>
 
-      {/* Question 1 */}
-      <h2>What is your current fitness level? </h2>
+        {/* Question 1 */} 
+      <h2>What is your sex?</h2>
 
-          <button onClick={() => setFitnessLevel('Beginner')}> Beginner </button>
+      <button 
+        className={sex === 'Female' ? 'selected' : ''}
+        onClick={() => setSex('Female')} >
+        Female
+      </button>
 
-          <button onClick={() => setFitnessLevel('Intermediate')}> Intermediate </button>
+      <button 
+        className={sex === 'Male' ? 'selected' : ''}
+        onClick={() => setSex('Male')} >
+        Male
+      </button>
 
-          <button onClick={() => setFitnessLevel('Advanced')}> Advanced </button>
+      {/* <button onClick={() => setGender('Prefer not to say')}>
+        Prefer not to say
+      </button> */}
 
-{fitnessLevel && (
-  <p>Your fitness level is: {fitnessLevel}</p>
-  )}
+    {/* {sex && <p> You answered: {sex} </p>} */}
 
-   {/* Question 2 */}
-  <h2>What is your main fitness goal? </h2> 
-  <h4>Click all that apply </h4>
-        <button onClick={() => toggleFitnessGoals('Flexibility')}> Flexibility</button>
-        <button onClick={() => toggleFitnessGoals('Build muscle')}> Build Muscle </button>
-        <button onClick={() => toggleFitnessGoals('Lose weight')}> Lose Weight </button>
-        <button onClick={() => toggleFitnessGoals('Endurance')}> Improve endurance </button>
-        <button onClick={() => toggleFitnessGoals('Bulk')}> Bulk </button>
-        <button onClick={() => toggleFitnessGoals('Toned')}> Toned </button>
-        
-  {fitnessGoals && (
-  <p>Your fitness goals are: {fitnessGoals.join(', ')}</p>
-)}
-</div>
 
-  );
-}
+        {/* Question 2 */}
+    <h2>What is your age?</h2> 
+
+    <input
+      className="age-input"
+      type="number"
+      min="0"
+      value={age}
+      onChange={(event) => setAge(event.target.value)}
+      placeholder=" "
+    />
+    <span> years </span>
+    {/* {age && Number(age) >= 13 && (
+    //<p>You answered: {age} years old</p>
+    )} */}
+
+    {age !== '' && Number(age) < 13 && (
+      <p className="error-message">
+        Invalid age input. Must be 13 or older to use this app.
+      </p>
+    )}
+    
+
+        {/* Question 3 */}
+    <h2>What is your height?</h2>
+
+        {/* height */}
+    <input
+     className="height-input"
+      type="number"
+      min="0"
+      value={heightFeet}
+      onChange={(event) => setHeightFeet(event.target.value)}
+      placeholder=" "
+    />
+    <span> feet </span>
+
+        {/* inches */}
+    <input
+    className="height-input"
+    type="number"
+    min="0"
+    value={heightInches}
+    onChange={(event) => setHeightInches(event.target.value)}
+    placeholder=" "
+    />
+    <span> inches </span>
+
+    {/* on click appear */}
+    {/* {heightFeet && heightInches && (
+    <p>
+      You answered: {heightFeet} feet & {heightInches} inches
+    </p>
+    )} */}
+
+      {heightInches !== '' && Number(heightInches) > 11 && (
+      <p className="error-message">
+        Invalid inches input. Enter 0–11 inches.
+      </p>
+    )}
+
+        {/* Question 4 */}
+    <h2>What is your weight?</h2>
+
+    <input
+      className="weight-input"
+      min="0"
+      type="number"
+      value={weight}
+      onChange={(event) => setWeight(event.target.value)}
+      placeholder=" "
+    />
+    <span> lbs </span>
+    
+
+    {/* {weight && Number(weight) > 0 && (
+    <p>
+      You answered: {weight} lbs
+    </p>
+    )} */}
+    {weight !== '' && Number(weight) <= 0 && (
+      <p className="error-message">
+        Invalid weight input. Must be greater than 0.
+      </p>
+    )}
+
+     <div className="navigation-buttons">
+            <button onClick={() => navigate('/homepage')}>
+             Back
+             </button>
+             
+            <button onClick={() => navigate('/fitnessquestions')}>
+                Next
+            </button>
+         </div>   
+
+  </div>
+    );
+  }
 export default Questionnaire;

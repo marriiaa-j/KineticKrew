@@ -13,6 +13,7 @@ import ForgotPassword from "./ForgotPassword";
 import ForgotUsername from "./ForgotUsername";
 import Questionnaire from './Questionnaire';
 import Homepage from './Homepage';
+import FitnessQuestions from './FitnessQuestions';
 
 
 
@@ -51,6 +52,14 @@ const router = createBrowserRouter([
     path: '/questionnaire',
     element: <Questionnaire />,
   },
+  {
+    path: '/fitness-questions',
+    element: <FitnessQuestions />,
+  },
+  {
+  path: '/fitnessquestions',
+  element: <FitnessQuestions />,
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
