@@ -13,6 +13,10 @@ import ForgotPassword from "./ForgotPassword";
 import ForgotUsername from "./ForgotUsername";
 import Questionnaire from './Questionnaire';
 import Homepage from './Homepage';
+import FitnessQuestions from './FitnessQuestions';
+
+
+
 
 const router = createBrowserRouter([
   {
@@ -41,13 +45,21 @@ const router = createBrowserRouter([
     element: <Homepage/>,
   },
   {
-    path: "/SignIn",
+    path: "/signin",
     element: <SignIn/>,
   },
   {
     path: '/questionnaire',
     element: <Questionnaire />,
   },
+  {
+    path: '/fitness-questions',
+    element: <FitnessQuestions />,
+  },
+  {
+  path: '/fitnessquestions',
+  element: <FitnessQuestions />,
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -55,6 +67,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <RouterProvider router = {router} />
+
   </React.StrictMode>
 );
 

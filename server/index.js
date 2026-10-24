@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: require("path").join(__dirname, ".env") });
 const db = require("./db");
 
 const express = require("express");
@@ -115,7 +115,7 @@ if (!req.user) return res.status(401).json({ error: "Not logged in" });
   try {
     await db.query(
       `INSERT INTO questionnaire_responses
-        (user_id, fitness_goal, preferred_style, hours_per_week, available_days,
+        (userId, fitness_goal, preferred_style, hours_per_week, available_days,
          has_worked_out_before, workouts_per_week, gym_visits_per_week, minutes_per_workout,
          barriers, athleticism_rating, height_inches, weight_lbs, age, gender)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) AS new
@@ -135,7 +135,7 @@ if (!req.user) return res.status(401).json({ error: "Not logged in" });
          age = new.age,
          gender = new.gender`,
       [
-        b.userId, b.fitness_goal, b.preferred_style, b.hours_per_week ?? null,
+        userId, b.fitness_goal, b.preferred_style, b.hours_per_week ?? null,
         JSON.stringify(days), b.has_worked_out_before, b.workouts_per_week ?? null,
         b.gym_visits_per_week ?? null, b.minutes_per_workout ?? null, JSON.stringify(barriers),
         b.athleticism_rating ?? null, b.height_inches ?? null, b.weight_lbs ?? null,
@@ -143,7 +143,7 @@ if (!req.user) return res.status(401).json({ error: "Not logged in" });
       ]
     );
 
-    const [rows] = await db.query("SELECT * FROM questionnaire_responses WHERE user_id = ?", [b.userId]);
+    const [rows] = await db.query("SELECT * FROM questionnaire_responses WHERE user_id = ?", [userId]);
     res.json(rows[0]);
   } catch (err) {
     console.error(err);
