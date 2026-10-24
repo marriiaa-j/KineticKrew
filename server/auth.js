@@ -1,12 +1,11 @@
-require('dotenv').config();
-
-const express = require('express');
 const passport = require('passport');
 const session = require("express-session");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('./db');
-const app = express();
 
+const CLIENT_URL = 'http://localhost:3000';
+
+module.exports = function setupAuth(app){
 app.use(
     session({
     secret: process.env.SESSION_SECRET || 'dev-secret', //gives user browser a cookie for session ID
@@ -23,7 +22,7 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL:'http://localhost:4000/auth/google/callback',
     passReqToCallback: true,
-}, async (accessToken, refreshToken, profile, done) =>{
+}, async (req, accessToken, refreshToken, profile, done) =>{
    try{
     const mode = req.session.authMode || 'signin'; 
     const email = profile.emails?.[0]?.value;
@@ -65,45 +64,43 @@ passport.deserializeUser(async(id, done)=> {
     }
 });
 
-//endpoints - Stopped here 10/22
+//Sign in with google
 app.get("/auth/google", (req,res,next)=> {
     req.session.authMode = 'signin';
     passport.authenticate('google', {scope: ['profile', 'email'], prompt: 'select_account'})(req,res,next);
 });
 
-app.get("/auth/google/callback",(req,res,next) =>{
-    passport.authenticate('google',(err,user,info) => {
-        const mode =req.session.authMode;
-        delete req.session.authMode;
-        if(err) return next(err);
-
-        if (!user) {
-            const page = mode === 'signup' ? 'signup': 'signin';
-            return res.redirect(`${CLIENT_URL}/${page}?error=${info?.reason || 'failed'}`);
-        }
-        req.logIn(user, (err) =>{
-            if (err) return next(err);
-            // New users go to the questionnaire; returning go home
-            res.redirect(mode === 'signup' ?`${CLIENT_URL}/questionnaire` : CLIENT_URL);
-    });
-}); (req,res,next);
-});
-
-//route to check who is logged in
+//signup with google 
+app.get("/auth/google/signup",(req,res,next) =>{
+      req.session.authMode = 'signup';
+    passport.authenticate('google', { scope: ['profile', 'email'], prompt: 'select_account' })(req, res, next);
+  });
+  
+//Callback url route to check who is logged in
 app.get('/api/me', (req,res) => {
     if (!req.user) return res.status(401).json({ error: 'Not logged in' });
     res.json(req.user);
 });
 
-//callback url
-app.get("/auth/google/callback", passport.authenticate('google', {failureRedirect: "/"}), (req,res) =>{
-    res.redirect('/profile')
-})
+  // Callback url (shared by sign in and sign up)
+  app.get('/auth/google/callback', (req, res, next) => {
+    passport.authenticate('google', (err, user, info) => {
+      const mode = req.session.authMode;
+      delete req.session.authMode;
+      if (err) return next(err);
 
-app.get("/profile",(req, res)=>{
-    if (!req.user) return res.redirect('/');
-    res.send(`Welcome ${req.user.displayName}`);
-});
+      if (!user) {
+        const page = mode === 'signup' ? 'signup' : 'signin';
+        return res.redirect(`${CLIENT_URL}/${page}?error=${info?.reason || 'failed'}`);
+      }
+
+      req.logIn(user, (err) => {
+        if (err) return next(err);
+        // New users go to the questionnaire; returning go home
+        res.redirect(mode === 'signup' ? `${CLIENT_URL}/questionnaire` : CLIENT_URL);
+      });
+    })(req, res, next);
+  });
 
 //logout route
 app.get("/logout", (req,res, next) => {
@@ -113,7 +110,4 @@ app.get("/logout", (req,res, next) => {
          res.redirect("/");
     });
 });
-
-app.listen(8000,()=>{
-    console.log('Server is running at port 80000');
-});
+};
