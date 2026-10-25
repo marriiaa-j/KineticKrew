@@ -12,6 +12,7 @@ function Questionnaire() {
   const [weight, setWeight] = useState(''); //Question 4
 
   return (
+    <div className="questionnaire-page">
     <div className="questionnaire-container">
       <h1>Profile Questionnaire</h1>
 
@@ -132,7 +133,7 @@ function Questionnaire() {
                 Next
             </button>
          </div>   
-
+    </div>
   </div>
     );
   }
