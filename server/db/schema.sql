@@ -16,6 +16,16 @@ INSERT IGNORE INTO exercises (name, muscle_group, equipment) VALUES
   ('Deadlift', 'Back', 'Barbell'),
   ('Pull-up', 'Back', 'Pull-up Bar');
 
+-- User Acct Table----
+CREATE TABLE IF NOT EXISTS users (
+  id              Int AUTO_INCREMENT PRIMARY KEY,
+  google_id       VARCHAR(255) UNIQUE,
+  email           VARCHAR(255) UNIQUE,
+  username        VARCHAR(15)  UNIQUE,
+  password_hash   VARCHAR(255),
+  display_name    VARCHAR(2550),
+  created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
   -- ===== Questionnaire =====
 CREATE TABLE IF NOT EXISTS questionnaire_responses (
@@ -37,5 +47,6 @@ CREATE TABLE IF NOT EXISTS questionnaire_responses (
   gender VARCHAR(30),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CHECK (athleticism_rating BETWEEN 1 AND 10)
+  CHECK (athleticism_rating BETWEEN 1 AND 10),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
