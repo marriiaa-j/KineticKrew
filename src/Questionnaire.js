@@ -24,6 +24,7 @@ function Questionnaire() {
 }
 
   return (
+    <div className="questionnaire-page">
     <div className="questionnaire-container">
       <h1>Profile Questionnaire</h1>
 
@@ -148,7 +149,7 @@ function Questionnaire() {
                 Next
             </button>
          </div>   
-
+    </div>
   </div>
     );
   }
