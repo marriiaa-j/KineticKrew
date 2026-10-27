@@ -121,16 +121,9 @@ app.post("/api/questionnaire", async (req, res) => {
   try {
     await db.query(
       `INSERT INTO questionnaire_responses
-<<<<<<< HEAD
         (user_id, sex, age, height_inches, weight_lbs, fitness_level,
          fitness_goals, days_per_week, workout_preferences, barriers)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) AS new
-=======
-        (userId, fitness_goal, preferred_style, hours_per_week, available_days,
-         has_worked_out_before, workouts_per_week, gym_visits_per_week, minutes_per_workout,
-         barriers, athleticism_rating, height_inches, weight_lbs, age, gender)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) AS new
->>>>>>> ae5fc20ad93adcc12ce55582a6f807f182cb6a15
        ON DUPLICATE KEY UPDATE
          sex = new.sex,
          age = new.age,
