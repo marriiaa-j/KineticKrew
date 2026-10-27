@@ -11,6 +11,18 @@ function Questionnaire() {
   const [heightInches, setHeightInches] = useState(''); //Question 3
   const [weight, setWeight] = useState(''); //Question 4
 
+
+  //---- passes server values to next page CM----
+  function handleNext() {
+  const profile = {
+    gender: sex,
+    age: Number(age),
+    height_inches: Number(heightFeet) * 12 + Number(heightInches || 0),
+    weight_lbs: Number(weight),
+  };
+  navigate('/fitnessquestions', { state: { profile } });
+}
+
   return (
     <div className="questionnaire-page">
     <div className="questionnaire-container">
@@ -128,7 +140,11 @@ function Questionnaire() {
             <button onClick={() => navigate('/homepage')}>
              Back
              </button>
-             
+        
+             <button onClick={handleNext}> 
+              Next
+              </button>
+              
             <button onClick={() => navigate('/fitnessquestions')}>
                 Next
             </button>
