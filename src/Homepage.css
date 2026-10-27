@@ -1,0 +1,114 @@
+.homepage-dashboard {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #F0EBFF;
+  color: #17152B;
+}
+
+/* Sidebar */
+.homepage-sidebar {
+  width: 260px;
+  min-height: 100vh;
+  background-color: #E8DFFF;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.homepage-sidebar.closed {
+  width: 0;
+}
+
+/* Logo and hamburger menu */
+.homepage-sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 25px 20px;
+}
+
+.homepage-menu-button {
+  background: none;
+  border: none;
+  color: #17152B;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.homepage-logo {
+  font-size: 24px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.homepage-logo-kinetic {
+  color: #17152B;
+}
+
+.homepage-logo-krew {
+  color: #7546D9;
+}
+
+/* Navigation */
+.homepage-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 15px;
+}
+
+.homepage-sidebar-nav a,
+.homepage-sidebar-bottom a {
+  color: #17152B;
+  text-decoration: none;
+  padding: 14px 15px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.homepage-sidebar-nav a:hover,
+.homepage-sidebar-bottom a:hover {
+  background-color: #BBA7FF;
+}
+
+/* Bottom navigation */
+.homepage-sidebar-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+}
+
+/* Main content */
+.homepage-main {
+  flex: 1;
+  min-width: 0;
+  padding: 35px;
+}
+
+.homepage-main h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.homepage-main p {
+  color: #6F668A;
+}
+
+.homepage-fixed-menu {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.homepage-sidebar-header {
+  padding-left: 75px;
+}
+
+.homepage-main {
+  padding-top: 80px;
+}
