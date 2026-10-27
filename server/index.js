@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: require("path").join(__dirname, ".env") });
 const db = require("./db");
 
 const express = require("express");
@@ -6,9 +6,10 @@ const cors = require("cors");
 
 const app = express();
 const PORT = 4000;
-
-app.use(cors());
+const setupAuth = require("./auth")
+app.use(cors({origin: "http://localhost:3000", credentials: true}));
 app.use(express.json());
+setupAuth(app);
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", message: "KineticKrew backend is running" });
@@ -81,11 +82,13 @@ const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const BARRIERS = ["motivation", "money", "time", "distance"];
 
 app.post("/api/questionnaire", async (req, res) => {
+if (!req.user) return res.status(401).json({ error: "Not logged in" });
+  const userId = req.user.id;
   const b = req.body || {};
 
-  if (!b.user_id || !b.fitness_goal || !b.preferred_style || typeof b.has_worked_out_before !== "boolean") {
+  if (!b.fitness_goal || !b.preferred_style || typeof b.has_worked_out_before !== "boolean") {
     return res.status(400).json({
-      error: "user_id, fitness_goal, preferred_style and has_worked_out_before are required",
+      error: "fitness_goal, preferred_style and has_worked_out_before are required",
     });
   }
   if (!GOALS.includes(b.fitness_goal)) {
@@ -112,7 +115,7 @@ app.post("/api/questionnaire", async (req, res) => {
   try {
     await db.query(
       `INSERT INTO questionnaire_responses
-        (user_id, fitness_goal, preferred_style, hours_per_week, available_days,
+        (userId, fitness_goal, preferred_style, hours_per_week, available_days,
          has_worked_out_before, workouts_per_week, gym_visits_per_week, minutes_per_workout,
          barriers, athleticism_rating, height_inches, weight_lbs, age, gender)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) AS new
@@ -132,7 +135,7 @@ app.post("/api/questionnaire", async (req, res) => {
          age = new.age,
          gender = new.gender`,
       [
-        b.user_id, b.fitness_goal, b.preferred_style, b.hours_per_week ?? null,
+        userId, b.fitness_goal, b.preferred_style, b.hours_per_week ?? null,
         JSON.stringify(days), b.has_worked_out_before, b.workouts_per_week ?? null,
         b.gym_visits_per_week ?? null, b.minutes_per_workout ?? null, JSON.stringify(barriers),
         b.athleticism_rating ?? null, b.height_inches ?? null, b.weight_lbs ?? null,
@@ -140,7 +143,7 @@ app.post("/api/questionnaire", async (req, res) => {
       ]
     );
 
-    const [rows] = await db.query("SELECT * FROM questionnaire_responses WHERE user_id = ?", [b.user_id]);
+    const [rows] = await db.query("SELECT * FROM questionnaire_responses WHERE user_id = ?", [userId]);
     res.json(rows[0]);
   } catch (err) {
     console.error(err);
@@ -148,14 +151,13 @@ app.post("/api/questionnaire", async (req, res) => {
   }
 });
 
-app.get("/api/questionnaire/:userId", async (req, res) => {
+app.get("/api/questionnaire/me", async (req, res) => {
+ if (!req.user) return res.status(401).json({ error: "Not logged in" });
   try {
-    const [rows] = await db.query("SELECT * FROM questionnaire_responses WHERE user_id = ?", [req.params.userId]);
-
+    const [rows] = await db.query("SELECT * FROM questionnaire_responses WHERE user_id = ?", [req.user.id]);
     if (rows.length === 0) {
       return res.status(404).json({ error: "No questionnaire found for this user" });
     }
-
     const row = rows[0];
     row.has_worked_out_before = Boolean(row.has_worked_out_before);
     res.json(row);
