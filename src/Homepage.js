@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 
 function Homepage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [profileOpen, setProfileOpen] = useState(false);
 return (
   <div className="homepage-dashboard">
 
@@ -44,7 +45,7 @@ return (
       </div>
 
         {/* Navigation links */}
-        <nav className="homepage-sidebar-nav">
+        <nav className="homepage-sidebar-navi">
           <Link to="/homepage">Dashboard</Link>
           <a href="#workouts">Workouts</a>
           <a href="#progress">My Progress</a>
@@ -59,15 +60,65 @@ return (
           <a href="#support">Support</a>
         </div>
 
-      </aside>
+    </aside>
 
       {/* Main dashboard content */}
       <main className="homepage-main">
-        <h1>Welcome Back! 💪</h1>
-        <p>Ready to crush your fitness goals today?</p>
+
+        {/* Top Navigation Bar */}
+        <header className="homepage-topbar">
+
+          {/* Search Bar */}
+          <div className="homepage-search">
+            <input
+              type="text"
+              placeholder="Search workouts..."
+              aria-label="Search workouts"
+            />
+          </div>
+
+          {/* Right Side */}
+          <div className="homepage-topbar-right">
+
+            {/* Notification Bell */}
+            <span className="homepage-notification" aria-label="Notifications">
+              🔔
+            </span>
+
+            {/* Profile Dropdown */}
+            <div className="homepage-profile">
+
+              <button
+              type="button"
+              className="homepage-profile-button"
+              onClick={() => setProfileOpen(!profileOpen)}
+              aria-expanded={profileOpen}
+              aria-label="Open profile menu"
+              >
+                👤
+              </button>
+
+              {profileOpen && (
+                <div className="homepage-profile-dropdown">
+                 <Link to="/homepage">My Profile</Link>
+                 <a href="#settings">Settings</a>
+                 <Link to="/SignIn">Log Out</Link>
+                </div>
+             )}
+
+            </div>
+          </div>
+        </header>
+
+       {/* Welcome Section */}
+       <section className="homepage-welcome">
+         <h1>Welcome Back! 💪</h1>
+         <p>Ready to crush your fitness goals today?</p>
+       </section>
+
       </main>
 
-    </div>
+  </div>
   );
 }
 
