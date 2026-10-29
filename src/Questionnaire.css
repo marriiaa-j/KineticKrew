@@ -43,7 +43,7 @@
 
 .questionnaire-page {
   min-height: 100vh;
-  background-color: #151326;
+  background-color: #393052;
   padding: 1px 0;
   box-sizing: border-box;
 }
@@ -108,4 +108,8 @@
   gap: 10px;
   max-width: 500px;
   margin: 0 auto;
+}
+
+.questionnaire-container .age-requirement {
+  color:var(--lavender);
 }
