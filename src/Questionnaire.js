@@ -13,15 +13,16 @@ function Questionnaire() {
 
 
   //---- passes server values to next page CM----
+    //---- passes page 1 answers to the next page ----
   function handleNext() {
-  const profile = {
-    gender: sex,
-    age: Number(age),
-    height_inches: Number(heightFeet) * 12 + Number(heightInches || 0),
-    weight_lbs: Number(weight),
-  };
-  navigate('/fitnessquestions', { state: { profile } });
-}
+    const profile = {
+      sex: sex || null,
+      age: age === '' ? null : Number(age),
+      height_inches: heightFeet === '' ? null : Number(heightFeet) * 12 + Number(heightInches || 0),
+      weight_lbs: weight === '' ? null : Number(weight),
+    };
+    navigate('/fitnessquestions', { state: { profile } });
+  }
 
   return (
     <div className="questionnaire-page">
@@ -144,10 +145,6 @@ function Questionnaire() {
              <button onClick={handleNext}> 
               Next
               </button>
-              
-            <button onClick={() => navigate('/fitnessquestions')}>
-                Next
-            </button>
          </div>   
     </div>
   </div>
