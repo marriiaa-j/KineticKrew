@@ -1,7 +1,11 @@
 import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
+
 
 function FitnessQuestions() {
+    const location = useLocation();
+    const profile = location.state?.profile || {};
+    const [saveError, setSaveError] = useState('');
     const navigate = useNavigate();
 
     const [fitnessLevel, setFitnessLevel] = useState(''); //Question 5
@@ -40,6 +44,38 @@ function toggleBarrier(barrier) {
   });
 }
 
+    async function handleSubmit() {
+      setSaveError('');
+
+      const answers = {
+        ...profile,
+        fitness_level: fitnessLevel || null,
+        fitness_goals: fitnessGoals,
+        days_per_week: workoutDays || null,
+        workout_preferences: workoutPreferences,
+        barriers: barriers,
+      };
+
+      try {
+        const res = await fetch('http://localhost:4000/api/questionnaire', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(answers),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          setSaveError(data.error || 'Could not save your answers.');
+          return;
+        }
+
+        navigate('/homepage');
+      } catch (err) {
+        setSaveError('Could not reach the server. Is the backend running?');
+      }
+    }
 
     return (
         <div className="questionnaire-container">
@@ -217,14 +253,15 @@ function toggleBarrier(barrier) {
             <p> What prevents you: {barriers.join(', ')} </p>
         )} */}
 
+        {saveError && <p className="error-message">{saveError}</p>}
 
         <div className="navigation-buttons">
              <button onClick={() => navigate('/questionnaire')}>
              Back
              </button>
 
-            <button onClick={() => navigate('/homepage')}>
-                Next
+            <button onClick={handleSubmit}>
+            Submit
             </button>
 
 
