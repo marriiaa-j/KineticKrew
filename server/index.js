@@ -102,7 +102,7 @@ function checkList(value, allowed, field) {
 
 app.post("/api/questionnaire", async (req, res) => {
   if (!req.user) return res.status(401).json({ error: "Not logged in" });
-  const userId = req.user.id;
+  const user_id = req.user.id;
   const b = req.body || {};
 
   const error =
@@ -135,7 +135,7 @@ app.post("/api/questionnaire", async (req, res) => {
          workout_preferences = new.workout_preferences,
          barriers = new.barriers`,
       [
-        userId,
+        user_id,
         b.sex || null,
         b.age ?? null,
         b.height_inches ?? null,
@@ -148,7 +148,7 @@ app.post("/api/questionnaire", async (req, res) => {
       ]
     );
 
-    const [rows] = await db.query("SELECT * FROM questionnaire_responses WHERE user_id = ?", [userId]);
+    const [rows] = await db.query("SELECT * FROM questionnaire_responses WHERE user_id = ?", [user_id]);
     res.json(rows[0]);
   } catch (err) {
     console.error(err);
