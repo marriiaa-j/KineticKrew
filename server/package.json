@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "db:setup": "node db/setup.js",
+    "db:show": "node db/show.js"
+
   },
   "keywords": [],
   "author": "",
