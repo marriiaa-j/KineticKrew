@@ -22,7 +22,7 @@
 .signin-card h1 {
   margin-bottom: 8px;
   text-align: center;
-  color: #3712dc;
+  color: #17152b;
 }
 
 .signin-subtitle {
@@ -63,7 +63,7 @@
 .password-label-row a,
 .forgot-username a,
 .signup-text a {
-  color:#3712dc;
+  color:#17152b;
   font-weight: 600;
   text-decoration: none;
 }
@@ -82,11 +82,11 @@
 .signin-button {
   margin-top: 8px;
   color: white;
-  background-color: #3712dc;
+  background-color: #17152b;
 }
 
 .signin-button:hover {
-  background-color: #3712dc;
+  background-color: #17152b;
 }
 
 .google-button {
