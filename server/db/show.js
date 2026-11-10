@@ -4,8 +4,21 @@ const path = require("path");
 const mysql = require("mysql2/promise");
 require("dotenv").config({ path: path.join(__dirname, "..", ".env"), quiet: true });
 
-const TABLES = ["users", "exercises", "questionnaire_responses"];
-const HIDDEN = ["password_hash", "google_id"];
+const QUERIES = {
+  users: "SELECT * FROM users",
+  exercises: "SELECT * FROM exercises",
+  questionnaire_responses: "SELECT * FROM questionnaire_responses",
+  answers: `
+    SELECT u.email, u.display_name,
+           q.sex, q.age, q.height_inches, q.weight_lbs, q.fitness_level,
+           q.fitness_goals, q.days_per_week, q.workout_preferences, q.barriers,
+           q.updated_at
+    FROM questionnaire_responses q
+    JOIN users u ON u.id = q.user_id
+    ORDER BY q.updated_at DESC`,
+};
+
+const TABLES = Object.keys(QUERIES);const HIDDEN = ["password_hash", "google_id"];
 const table = process.argv[2] || "questionnaire_responses";
 
 if (!TABLES.includes(table)) {
@@ -33,7 +46,7 @@ function format(value) {
       : undefined,
   });
 
-  const [rows] = await conn.query(`SELECT * FROM ${table}`);
+  const [rows] = await conn.query(QUERIES[table]);
   console.log(`\n${table}: ${rows.length} row(s)\n`);
 
   rows.forEach((row, i) => {
