@@ -2,7 +2,7 @@ const passport = require('passport');
 const session = require("express-session");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('./db');
-
+const bcrypt =require('bcryptjs');
 const CLIENT_URL = 'http://localhost:3000';
 
 module.exports = function setupAuth(app){
@@ -64,6 +64,58 @@ passport.deserializeUser(async(id, done)=> {
     }
 });
 
+//Manual sign-up 
+app.post('/api/signup', async (req,res, next)=> {
+    const firstName = (req.body?.firstName || '').trim();
+    const lastName = (req.body?.lastName || '').trim();
+    const email = (req.body?.email || '').trim().toLowerCase();
+    const username = (req.body?.username || '').trim();
+    const password = req.body?.password || '';
+
+    if (!email || !username || !password) {
+      return res.status(400).json({ error: 'Email, username, and password are required' });
+    }
+    if (username.length > 15) {
+      return res.status(400).json({ error: 'Username must be 15 characters or fewer' });
+    }
+    if (password.length < 8) {
+      return res.status(400).json({ error: 'Password must be at least 8 characters' });
+    }
+
+    try {
+      const [existing] = await db.query(
+        'SELECT email, username FROM users WHERE email = ? OR username = ?',
+        [email, username]
+      );
+      if (existing.some((u) => u.email === email)) {
+        return res.status(409).json({ error: 'An account with this email already exists. Try signing in.' });
+      }
+      if (existing.length) {
+        return res.status(409).json({ error: 'That username is taken' });
+      }
+
+      const passwordHash = await bcrypt.hash(password, 10);
+      const displayName = `${firstName} ${lastName}`.trim() || username;
+
+      const [result] = await db.query(
+        'INSERT INTO users (email, username, password_hash, display_name) VALUES (?, ?, ?, ?)',
+        [email, username, passwordHash, displayName]
+      );
+
+      // Log them in right away, same as Google sign-up
+      const user = { id: result.insertId, email, display_name: displayName };
+      req.logIn(user, (err) => {
+        if (err) return next(err);
+        res.status(201).json(user);
+      });
+    } catch (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        return res.status(409).json({ error: 'That email or username is already in use' });
+      }
+      next(err);
+    }
+  });
+  
 //Sign in with google
 app.get("/auth/google", (req,res,next)=> {
     req.session.authMode = 'signin';
