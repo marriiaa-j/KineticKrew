@@ -1,4 +1,6 @@
-// Prints a table from the database, one card per row: npm run db:show -- users
+// View database tables. Run from the server folder:
+//   npm run db:show -- answers          (cards in the terminal)
+//   npm run db:show -- answers --csv    (saves server/exports/answers.csv for Excel)
 const fs = require("fs");
 const path = require("path");
 const mysql = require("mysql2/promise");
@@ -17,12 +19,14 @@ const QUERIES = {
     JOIN users u ON u.id = q.user_id
     ORDER BY q.updated_at DESC`,
 };
+const HIDDEN = ["password_hash", "google_id"];
 
-const TABLES = Object.keys(QUERIES);const HIDDEN = ["password_hash", "google_id"];
-const table = process.argv[2] || "questionnaire_responses";
+const args = process.argv.slice(2);
+const table = args.find((a) => !a.startsWith("--")) || "questionnaire_responses";
+const asCsv = args.includes("--csv");
 
-if (!TABLES.includes(table)) {
-  console.log(`Pick one of: ${TABLES.join(", ")}`);
+if (!QUERIES[table]) {
+  console.log(`Pick one of: ${Object.keys(QUERIES).join(", ")}`);
   process.exit(1);
 }
 
@@ -31,6 +35,12 @@ function format(value) {
   if (Array.isArray(value)) return value.length ? value.join(", ") : "—";
   if (value instanceof Date) return value.toLocaleString();
   return String(value);
+}
+
+function csvCell(value) {
+  let text = value === null || value === undefined ? "" : format(value);
+  if (text === "—") text = "";
+  return `"${text.replace(/"/g, '""')}"`;
 }
 
 (async () => {
@@ -47,8 +57,25 @@ function format(value) {
   });
 
   const [rows] = await conn.query(QUERIES[table]);
-  console.log(`\n${table}: ${rows.length} row(s)\n`);
+  await conn.end();
 
+  if (asCsv) {
+    const columns = Object.keys(rows[0] || {}).filter((c) => !HIDDEN.includes(c));
+    const lines = [
+      columns.join(","),
+      ...rows.map((row) => columns.map((c) => csvCell(row[c])).join(",")),
+    ];
+
+    const folder = path.join(__dirname, "..", "exports");
+    fs.mkdirSync(folder, { recursive: true });
+    const file = path.join(folder, `${table}.csv`);
+    fs.writeFileSync(file, "\uFEFF" + lines.join("\r\n"));
+
+    console.log(`Saved ${rows.length} row(s) to ${file}`);
+    return;
+  }
+
+  console.log(`\n${table}: ${rows.length} row(s)\n`);
   rows.forEach((row, i) => {
     console.log(`── Row ${i + 1} ${"─".repeat(30)}`);
     const keys = Object.keys(row).filter((k) => !HIDDEN.includes(k));
@@ -58,8 +85,6 @@ function format(value) {
     }
     console.log();
   });
-
-  await conn.end();
 })().catch((err) => {
   console.error("Failed:", err.message);
   process.exit(1);
