@@ -1,115 +1,281 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap');
 
-/* Highlight focused inputs */
-.questionnaire-container input:focus {
-  outline: 2px solid black;
-  border: 2px solid black;
-}
-
-/* Height inputs */
-.questionnaire-container .height-input {
-  width: 50px;
-  margin-right: 5px;
-}
-
-/* Error message */
-.questionnaire-container .error-message {
-  color: red;
-}
-
-/* Question spacing */
-.questionnaire-container h2 + h4 {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.questionnaire-container input {
-  margin-top: 0;
-}
-
-/* Body styling */
 :root {
-  --dark-purple: #302946;;
+  --dark-purple: #302946;
   --white: #ffffff;
   --lavender: #a993f5;
+  --mute-purple:#302946;
   --light-lavender: #e9e4ff;
+  --button-gray: #eeeeee;
+  --error-red: #e60000;
 }
 
-/*body {
-  font-family: 'Arimo', sans-serif;
-  margin: 0;
-  background-color: var(--dark-purple);
-} */
-
-.questionnaire-page {
-  min-height: 100vh;
-  background-color: #393052;
-  padding: 1px 0;
+* {
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  font-family: 'Arimo', sans-serif;
+}
+
+/* Purple page background */
+.questionnaire-page {
+  min-height: 100vh;
+  padding: 50px 20px;
+  background-color: var(--dark-purple);
+}
+
+/* White questionnaire card */
 .questionnaire-container {
-  width: 80%;
-  max-width: 700px;
+  width: 100%;
+  max-width: 600px;
   min-height: 80vh;
-  margin: 40px auto;
-  padding: 30px;
+  margin: 0 auto;
+  padding: 20px;
   background-color: var(--white);
-  border-radius: 12px;
+  border-radius: 16px;
   text-align: center;
   font-family: 'Arimo', sans-serif;
 }
 
+/* Headings */
 .questionnaire-container h1 {
   color: var(--dark-purple);
+  font-size: 37px;
+  margin-bottom: 40px;
 }
 
 .questionnaire-container h2 {
-  margin-top: 50px;
-  margin-bottom: 8px;
+  margin: 0 0 14px;
   color: var(--dark-purple);
+  font-size: 22px;
 }
 
-.questionnaire-container button.selected {
-  background-color: var(--lavender);
-  color: var(--dark-purple);
-  border: 2px solid var(--dark-purple);
+.questionnaire-container h4 {
+  margin: 0 0 18px;
+  font-size: 20px;
+}
+
+/* Buttons */
+.questionnaire-container button {
+  min-width: 110px;
+  min-height: 45px;
+  margin: 4px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--button-gray);
+  color: #17129c;
+  font-family: 'Arimo', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
 .questionnaire-container button:hover {
   background-color: var(--light-lavender);
 }
 
+.questionnaire-container button.selected {
+  background-color: var(--lavender);
+  color: var(--dark-purple);
+  border: 3px solid var(--dark-purple);
+}
+
 .questionnaire-container button.selected:hover {
   background-color: var(--lavender);
 }
 
-
-.questionnaire-container button {
-  transition: none;
+/* Inputs */
+.questionnaire-container input {
+  margin-top: 0;
+  padding: 8px;
+  border: 2px solid #888;
+  border-radius: 5px;
+  font-family: 'Arimo', sans-serif;
+  font-size: 16px;
 }
-.questionnaire-container .age-input,
-.questionnaire-container .weight-input {
-  width: 60px;
+
+.questionnaire-container input:focus {
+  outline: 2px solid black;
+  border-color: black;
 }
 
-.questionnaire-container .navigation-buttons {
+.age-input,
+.weight-input {
+  width: 80px;
+}
+
+.height-input {
+  width: 80px;
+}
+
+/* Units beside inputs */
+.questionnaire-container span {
+  font-size: 18px;
+}
+
+/* Age instruction */
+.age-requirement {
+  margin: 0 0 12px;
+  color: var(--lavender);
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Height inputs stay side by side */
+.height-input-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-top: 80px;
-  width: 100%;
+  gap: 8px;
+  flex-wrap: nowrap;
 }
 
-.questionnaire-container .fitness-goals-buttons, 
-.questionnaire-container .fitness-barriers {
+/* Fitness goal and barrier grids */
+.fitness-goals-buttons,
+.fitness-barriers {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 500px;
+  gap: 12px;
+  width: 100%;
+  max-width: 650px;
   margin: 0 auto;
 }
 
-.questionnaire-container .age-requirement {
-  color:var(--lavender);
+.fitness-goals-buttons button,
+.fitness-barriers button {
+  width: 100%;
+  min-height: 55px;
+  margin: 0;
+}
+
+/* Optional workout preference grid */
+.fitness-preferences-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.fitness-preferences-buttons button {
+  width: 100%;
+  margin: 0;
+}
+
+/* Error messages reserve space so layout does not jump */
+.error-slot,
+.height-error-slot {
+  min-height: 36px;
+  margin-top: 10px;
+}
+
+.error-message {
+  margin: 1;
+  color: var(--error-red);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Selected barrier counter */
+.questionnaire-container p {
+  max-width: 100%;
+}
+
+/* Back and next/submit buttons */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.navigation-buttons button {
+  min-width: 120px;
+}
+
+/* Mobile layout */
+@media (max-width: 700px) {
+  .questionnaire-page {
+    padding: 20px 10px;
+  }
+
+  .questionnaire-container {
+    padding: 25px 15px;
+  }
+
+  .questionnaire-container h1 {
+    font-size: 32px;
+  }
+
+  .questionnaire-container h2 {
+    font-size: 26px;
+  }
+
+  .fitness-goals-buttons,
+  .fitness-barriers {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fitness-preferences-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .height-input-row {
+    gap: 4px;
+  }
+
+  .questionnaire-container span {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 450px) {
+  .fitness-goals-buttons,
+  .fitness-barriers,
+  .fitness-preferences-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .navigation-buttons {
+    gap: 20px;
+  }
+}
+
+.question-block {
+  min-height: 0px;
+  margin: 20px;
+}
+
+.question-block h2 {
+  margin: 0 0 14px;
+}
+
+.question-block p {
+  margin: 8px 0 14px;
+}
+
+.questionnaire.error-slot,
+.height-error-slot {
+  min-height: 30px;
+}
+
+/* Spacing only for fitness questions */
+.fitness-questionnaire .question-block {
+  margin-bottom: 50px;
+}
+
+/* Keeps the first fitness question from having extra top spacing */
+.fitness-questionnaire .question-block:first-of-type {
+  margin-top: 0;
+}
+
+.fitness-questionnaire h4 {
+  color: var(--mute-purple);
+  font-size: 16px;
+  font-weight: 400;
+  margin: 5px 0 15px;
 }
