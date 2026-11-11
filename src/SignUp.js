@@ -27,6 +27,11 @@ function SignUp() {
     event.preventDefault();
     setError("");
 
+    if (formData.password.length < 8) {
+    setError("Password must be at least 8 characters.");
+    return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match.");
       return;
@@ -121,7 +126,7 @@ function SignUp() {
             onChange={handleChange}
             required
             />
-            
+
           <label htmlFor="username">Username</label>
           <input
             id="username"
@@ -135,6 +140,7 @@ function SignUp() {
 
           <label htmlFor="password">Password</label>
           <input
+          
             id="password"
             name="password"
             type="password"
@@ -143,6 +149,10 @@ function SignUp() {
             onChange={handleChange}
             required
           />
+
+          {formData.password !== "" && formData.password.length < 8 && (
+              <p className="error-message">Password must be at least 8 characters.</p>
+            )}
 
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
@@ -154,6 +164,10 @@ function SignUp() {
             onChange={handleChange}
             required
           />
+
+            {formData.confirmPassword !== "" && formData.password !== formData.confirmPassword && (
+              <p className="error-message">Passwords do not match.</p>
+            )}
 
           <button className="signin-button" type="submit">
             Sign Up
