@@ -1,9 +1,13 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams} from "react-router-dom";
 import "./SignIn.css";
 
 function SignUp() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const googleError = searchParams.get("error");
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,15 +23,43 @@ function SignUp() {
     });
   }
 
-  function handleSubmit(event) {
+ async function handleSubmit(event) {
     event.preventDefault();
+    setError("");
+
+    if (formData.password.length < 8) {
+    setError("Password must be at least 8 characters.");
+    return;
+    }
 
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match.");
       return;
     }
 
-    alert(`Account created for ${formData.username}`);
+    try {
+      const res = await fetch("http://localhost:4000/api/signup", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          username: formData.username,
+          password: formData.password,
+        }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error);
+        return;
+      }
+      navigate("/questionnaire");
+    } catch (err) {
+      setError("Could not reach the server. Is it running?");
+    }
   }
 
   function handleGoogleLogin(){
@@ -41,6 +73,21 @@ function SignUp() {
         <p className="signin-subtitle">
           Sign up for your KineticKrew account
         </p>
+
+        {error && <p className="error-message">{error}</p>}
+
+        {googleError === "account_exists" && (
+          <p className="error-message">
+            An account is already linked to this Google account.{" "}
+            <Link to="/signin">Try signing in</Link>.
+          </p>
+        )}
+        {googleError === "email_exists" && (
+          <p className="error-message">
+            An account with this email already exists.{" "}
+            <Link to="/signin">Try signing in</Link>.
+          </p>
+        )}
 
         <form onSubmit={handleSubmit}>
           <div className="name-row">
@@ -69,6 +116,17 @@ function SignUp() {
             </div>
           </div>
 
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            />
+
           <label htmlFor="username">Username</label>
           <input
             id="username"
@@ -82,6 +140,7 @@ function SignUp() {
 
           <label htmlFor="password">Password</label>
           <input
+          
             id="password"
             name="password"
             type="password"
@@ -90,6 +149,10 @@ function SignUp() {
             onChange={handleChange}
             required
           />
+
+          {formData.password !== "" && formData.password.length < 8 && (
+              <p className="error-message">Password must be at least 8 characters.</p>
+            )}
 
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
@@ -101,6 +164,10 @@ function SignUp() {
             onChange={handleChange}
             required
           />
+
+            {formData.confirmPassword !== "" && formData.password !== formData.confirmPassword && (
+              <p className="error-message">Passwords do not match.</p>
+            )}
 
           <button className="signin-button" type="submit">
             Sign Up
