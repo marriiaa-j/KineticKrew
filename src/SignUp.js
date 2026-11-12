@@ -1,13 +1,61 @@
+/**
+ * @file SignUp.js
+ * @module SignUp
+ * @author Maria Jimenez(); Citlalli Martinez (auth integration & form sub DB)
+ * @since 2026-10-20 
+ *
+ * @description
+ * Sign-up page (React component) for KineticKrew. Lets users create an account
+ * with email and password, or with Google. After a successful sign-up, the user
+ * is logged in and taken to the questionnaire.
+ *
+ * **Important data structures**
+ * - **`formData` object**: one state object holding every form field, keyed by
+ *   each input's `name` attribute. A single generic `handleChange` updates any field.
+ * - **URL query parameters** (`?error=...`): carry error codes from the backend's
+ *   Google sign-up redirect back to this page.
+ *
+ * **Algorithms and why they were chosen**
+ * - **Two-layer validation** (here and on the server): checking password length
+ *   and matching passwords in the browser gives instant feedback, while the
+ *   server repeats the checks because it is the real security boundary.
+ * - **Controlled inputs with immutable updates** (`{ ...formData, [name]: value }`):
+ *   creating a new object on each change lets React detect the change and
+ *   re-render the live validation messages.
+ */
 
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams} from "react-router-dom";
 import "./SignIn.css";
 
+/**
+ * Sign-up page component.
+ *
+ * - Manual sign-up sends the form to `POST /api/signup`. On success the user
+ *   is logged in and redirected to `/questionnaire`; on failure the server's
+ *   error message is shown at the top of the card.
+ * - Google sign-up redirects to the backend's `/auth/google/signup` route.
+ *   If Google sign-up fails, the backend sends the user back here with an
+ *   `?error=` query parameter (`account_exists` or `email_exists`), which is
+ *   shown as a message.
+ *
+ * @component
+ * @returns {JSX.Element} The sign-up form.
+ */
 function SignUp() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  /** Error code returned by the Google sign-up flow, if any. */
   const googleError = searchParams.get("error");
+
+  /** Error message shown at the top of the form. */
   const [error, setError] = useState("");
+
+    /**
+   * Values of every field in the form, keyed by each input's `name` attribute.
+   * @type {[{firstName: string, lastName: string, email: string, username: string, password: string, confirmPassword: string}, Function]}
+   */
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -16,6 +64,12 @@ function SignUp() {
     confirmPassword: "",
   });
 
+    /**
+   * Updates the matching field in `formData` as the user types.
+   * Works for every input because it uses the input's `name` attribute as the key.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Input: the input's change event.
+   * @returns {void} Output: none; updates `formData` state.
+   */
   function handleChange(event) {
     setFormData({
       ...formData,
@@ -23,6 +77,15 @@ function SignUp() {
     });
   }
 
+    /**
+   * Validates the form, then sends it to the backend to create the account.
+   * Checks that the password is at least 8 characters and that both password
+   * fields match before sending. `credentials: "include"` lets the browser
+   * store the login cookie the server sets.
+   * @param {React.FormEvent<HTMLFormElement>} event - Input: the form's submit event.
+   * @returns {Promise<void>} Output: navigates to `/questionnaire`;
+   *   on failure, sets an error to display.
+   */
  async function handleSubmit(event) {
     event.preventDefault();
     setError("");
@@ -62,6 +125,10 @@ function SignUp() {
     }
   }
 
+    /**
+   * Starts Google sign-up by sending the browser to the backend's Google route.
+   * @returns {void} Output: browser redirect to `/auth/google/signup`.
+   */
   function handleGoogleLogin(){
        window.location.href = 'http://localhost:4000/auth/google/signup';
     }
