@@ -44,6 +44,14 @@ function toggleBarrier(barrier) {
   });
 }
 
+/**
+ * Combines page 1 answers (profile) with page 2 answers and sends them to the backend.
+ * Uses credentials: 'include' so the login session cookie is sent.
+ * On success goes to the homepage; on failure shows the backend's error message.
+ * @async
+ * @returns {Promise<void>}
+ */
+
     async function handleSubmit() {
       setSaveError('');
 
