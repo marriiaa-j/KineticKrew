@@ -1,6 +1,16 @@
 // View database tables. Run from the server folder:
 //   npm run db:show -- answers          (cards in the terminal)
 //   npm run db:show -- answers --csv    (saves server/exports/answers.csv for Excel)
+/**
+ * @file show.js
+ * @author Angela Fernandez
+ * @since 2026-11-02 (answers view and CSV export added 2026-11-10)
+ * @description Read-only viewer for database tables. Prints one card per row, or saves a CSV for Excel.
+ * Usage (from server/): npm run db:show -- <users|exercises|questionnaire_responses|answers> [--csv]
+ * @param {string} table - which view to show (default: questionnaire_responses)
+ * @param {flag} --csv - save to server/exports/<table>.csv instead of printing
+ */
+
 const fs = require("fs");
 const path = require("path");
 const mysql = require("mysql2/promise");
