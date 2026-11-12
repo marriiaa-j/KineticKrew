@@ -1,3 +1,35 @@
+
+/**
+ * @file Questionnaire.js
+ * @module Questionnaire
+ * @author  Martha Jauregui (original page and developed questions)
+ * @author Citlalli Martinez (Fixed routing so answers can carry over to next page)
+ * @author Angela Fernandez (Connected Questionnaire to DB)
+ * @date 2026-10-22 
+
+ *
+ * @description
+ * Step 1 of the onboarding questionnaire (React component). Collects profile
+ * answers (sex, age, height, weight), validates them, and passes them to step 2
+ * (FitnessQuestions.js), where all answers are saved together.
+ *
+ * **Important data structures**
+ * - **Answer state strings** (`sex`, `age`, `heightFeet`, `heightInches`, `weight`):
+ *   controlled input values for each question.
+ * - **`profile` object** `{ sex, age, height_inches, weight_lbs }`: this page's answers,
+ *   using the backend's field names, passed to the next page through React Router state.
+ *
+ * **Algorithms and why they were chosen**
+ * - **Multi-step form with a single final save** instead of saving after every page:
+ *   avoids storing half-finished questionnaires, and the server requires answers
+ *   from both pages in one request.
+ * - **Router state** to pass answers between pages instead of global state
+ *   (Context/Redux): simplest option for a two-step flow. Trade-off: answers are
+ *   lost if the page is refreshed mid-questionnaire.
+ * - **Height conversion** `feet * 12 + inches`: stores one number in the database,
+ *   which is easier to compare and calculate with than two separate values.
+ */
+
 import './Questionnaire.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
