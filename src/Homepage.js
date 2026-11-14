@@ -22,24 +22,64 @@ import './Homepage.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-/*function Homepage() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div>Home Page</div>
+/**
+ * @file Homepage.js
+ * @description Frontend homepage dashboard for the KineticKrew
+ * fitness tracking website. Provides sidebar navigation,
+ * a workout search interface, notification display,
+ * profile dropdown, and welcome section.
+ *
+ * @author May
+ * @date 2026-11-13
+ */
 
-        <Link to={'/'}>main page</Link>
-      </header>
-    </div>
-  );
-}*/
+/**
+ * Homepage component for the KineticKrew fitness tracking system.
+ *
+ * Displays the main dashboard interface and allows users to
+ * interact with the sidebar, search bar, and profile menu.
+ *
+ * React state variables:
+ * - sidebarOpen: Controls sidebar visibility.
+ * - profileOpen: Controls profile dropdown visibility.
+ * - searchQuery: Stores the user's search input.
+ * - searchMessage: Stores the search feedback message.
+ * - notificationOpen: Reserved for notification dropdown state.
+ *
+ * @component
+ * @returns {React.JSX.Element} The homepage dashboard interface.
+ */
 
 function Homepage() {
+  // Controls whether the sidebar is expanded or collapsed.
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // Controls whether the profile dropdown is displayed.
   const [profileOpen, setProfileOpen] = useState(false);
+
+   // Stores the text entered in the search bar.
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Stores the message displayed after a search.
   const [searchMessage, setSearchMessage] = useState('');
 
+  // Reserved for controlling notification dropdown visibility.
+  const [notificationOpen, setNotificationOpen] = useState(false);
+
+  /**
+   * Handles the submission of the workout search form.
+   *
+   * Prevents the default form submission, removes extra
+   * whitespace from the search query, and displays a
+   * search feedback message.
+   *
+   * If the search input is empty, the message is cleared.
+   *
+   * @function handleSearch
+   * @param {React.FormEvent<HTMLFormElement>} e
+   * The form submission event.
+   * @returns {void}
+   */
   function handleSearch(e) {
    e.preventDefault();
 
@@ -156,9 +196,29 @@ return (
           <div className="homepage-topbar-right">
 
             {/* Notification Bell */}
-            <span className="homepage-notification" aria-label="Notifications">
-              🔔
-            </span>
+            <div className="homepage-notification">
+
+              <button
+                type="button"
+                className="homepage-notification-button"
+                onClick={() => setNotificationOpen(!notificationOpen)}
+                aria-label="Notifications"
+                aria-expanded={notificationOpen}
+              >
+                <Bell size={22} />
+              </button>
+
+              {notificationOpen && (
+                <div className="homepage-notification-dropdown">
+                  <div className="homepage-notification-header">
+                    <h3>Notifications</h3>
+                    <Bell size={18} />
+                  </div>
+
+                  <p>No new notifications yet.</p>
+                </div>
+              )}
+            </div>
 
             {/* Profile Dropdown */}
             <div className="homepage-profile">
