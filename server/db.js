@@ -1,3 +1,14 @@
+/**
+ * @file db.js
+ * @module db
+ * @author Angela Fernandez
+ * @since 2026-10-19 (updated 2026-11-02 for cloud SSL)
+ * @description Creates and exports one shared MySQL connection pool (Singleton + Object Pool).
+ * Reads DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME from .env.
+ * When DB_SSL=true, connects over SSL and verifies the server with ca.pem (Aiven cloud).
+ * @returns {Pool} pool - use pool.query(sql, values) to run parameterized queries.
+ */
+
 const fs = require("fs");
 const path = require("path");
 const mysql = require("mysql2/promise");

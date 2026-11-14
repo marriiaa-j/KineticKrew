@@ -1,20 +1,57 @@
+/**
+ * @file SignIn.js
+ * @module SignIn
+ * @author Maria Jimenez(); Citlalli Martinez(Manual sign in function)
+ * @date 2026-10-03
+ *
+ * @description
+ * Sign-in page (React component) for KineticKrew. Google sign-in is connected
+ * to the backend; the email/username and password form is a placeholder until
+ * manual sign-in is implemented.
+ *
+ * **Important data structures**
+ * - **`emailOrUsername` and `password` state strings**: controlled input values
+ *   for the sign-in form.
+ *
+ * **Algorithms and why they were chosen**
+ * - **Full-page redirect for Google sign-in** (`window.location.href`) instead of a
+ *   popup or `fetch`: OAuth 2.0 requires the browser itself to visit Google and
+ *   come back, so the backend can set the login cookie on its own domain.
+ */
+
 import { useState} from "react";
 import {Link} from "react-router-dom";
 import "./SignIn.css";
 
+/**
+ * Sign-in page component.
+ * @component
+ * @returns {JSX.Element} The sign-in form with a Google sign-in button.
+ */
 function SignIn() {
     const [emailOrUsername, setEmailOrUsername] = useState("");
     const [ password, setPassword] = useState("");
 
+      /**
+   * Handles the email/username and password form.
+   * Placeholder: shows an alert until manual sign-in is connected to the backend.
+   *  Input: the form's submit event.
+   * @returns Output: an alert naming the user.
+   */
     function handleSubmit(event) {
         event.preventDefault();
 
-        // updated for profile signin -CM 
+        // updated for profile sign-in -CM 
         alert( `Signing in as ${emailOrUsername}`);
     }
 
+      /**
+   * Starts Google sign-in by sending the browser to the backend's Google route.
+   * Input: none.
+   * @returns {void} Output: browser redirect to `/auth/google`.
+   */
     function handleGoogleLogin(){
-       window.location.href = 'http://localhost:4000/auth/google';
+       window.location.href = 'http://localhost:4000/auth/google/';
     }
     return ( 
         <main className="sign-page">

@@ -53,10 +53,6 @@ const router = createBrowserRouter([
     element: <Questionnaire />,
   },
   {
-    path: '/fitness-questions',
-    element: <FitnessQuestions />,
-  },
-  {
   path: '/fitnessquestions',
   element: <FitnessQuestions />,
   }

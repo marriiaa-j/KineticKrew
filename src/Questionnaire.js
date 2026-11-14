@@ -1,3 +1,60 @@
+
+/**
+ * @file Questionnaire.js
+ * @module Questionnaire
+ * @author  Martha Jauregui (original page and developed questions)
+ * @author Citlalli Martinez (Fixed routing so answers can carry over to next page)
+ * @author Angela Fernandez (Connected Questionnaire to DB)
+ * @date 2026-10-22 
+
+ *
+ * @description
+ This React module creates the profile questionnaire page. It collects
+ * the user's sex, age, height, and weight before allowing the user to
+ * continue to the fitness questionnaire.
+ *
+ * Important Functions:
+ *
+ * handleNext()
+ * Input:
+ *   The profile answers stored in React state.
+ * Output:
+ *   Navigates to FitnessQuestions.js when all answers are valid.
+ *   Displays an error message when answers are missing or invalid.
+ *
+ * Age validation handler
+ * Input:
+ *   The age entered by the user.
+ * Output:
+ *   Updates the age state and displays an error if the age is below 13,
+ *   above 100, or contains invalid characters.
+ *
+ * Height validation handlers
+ * Input:
+ *   Feet and inches entered by the user.
+ * Output:
+ *   Updates the height values and displays errors for values outside
+ *   the accepted ranges.
+ *
+ * Weight validation handler
+ * Input:
+ *   The weight entered by the user.
+ * Output:
+ *   Updates the weight state and displays an error if the weight is
+ *   outside the accepted range.
+ *
+ * Data Structures:
+ *   React state variables store individual answers and error messages.
+ *   A profile object stores the completed profile answers before they
+ *   are passed to the next page through React Router.
+ *
+ * Algorithm:
+ *   The module uses conditional validation with if statements and
+ *   logical operators. This approach was selected because the profile
+ *   contains a small number of independent fields and direct validation
+ *   is easy to read and maintain.
+ */
+
 import './Questionnaire.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -54,6 +111,7 @@ useEffect(() => {
 
 
  function handleNext() {
+  
   const hasMissingAnswer =
     sex === '' ||
     age === '' ||
@@ -72,7 +130,22 @@ useEffect(() => {
     Number(heightInches) < 0 ||
     Number(heightInches) > 11 ||
     weightError !== '' ||
-    Number(weight) < 50;
+    Number(weight) < 50 ||
+    Number(weight) > 800;
+
+  //    console.log({
+  //   sex,
+  //   age,
+  //   heightFeet,
+  //   heightInches,
+  //   weight,
+  //   ageError,
+  //   heightFeetError,
+  //   heightInchesError,
+  //   weightError,
+  //   hasMissingAnswer,
+  //   hasInvalidAnswer
+  // });
 
   if (hasMissingAnswer) {
     setFormError('Please answer all questions before continuing.');
@@ -84,6 +157,7 @@ useEffect(() => {
   }
 
   setFormError('');
+ console.log('Navigating to fitness questions');
   navigate('/fitnessquestions',{
      state: {
         profile: {
@@ -334,8 +408,8 @@ useEffect(() => {
             <button 
              className="next-button"
              onClick={handleNext} 
-             //disabled={!profileComplete}
-                >Next
+                >
+                  Next
             </button>
            </div>   
     </div>
@@ -345,3 +419,4 @@ useEffect(() => {
     );
   }
 export default Questionnaire;
+ 

@@ -1,3 +1,60 @@
+
+/**
+ * @file FitnessQuestions.js
+ * @module FitnessQuestions
+ * @author  Martha Jauregui (original page and developed questions)
+ * @author Citlalli Martinez (Fixed routing so answers can carry over to next page)
+ * @author Angela Fernandez (Connected Questionnaire to DB)
+ * @date 2026-10-25
+
+ * @description
+ * This React module creates the fitness questionnaire page. It collects
+ * the user's fitness level, fitness goals, available workout days,
+ * workout preferences, and barriers to exercising.
+ *
+ * Important Functions:
+ *
+ * toggleFitnessGoals(goal)
+ * Input:
+ *   A fitness goal selected by the user.
+ * Output:
+ *   Adds the goal to the selected goals array or removes it if it was
+ *   already selected.
+ *
+ * toggleWorkoutPreference(preference)
+ * Input:
+ *   A workout preference selected by the user.
+ * Output:
+ *   Adds or removes the preference from the selected preferences array.
+ *
+ * toggleBarrier(barrier)
+ * Input:
+ *   An exercise barrier selected by the user.
+ * Output:
+ *   Adds or removes the barrier from the barriers array. The function
+ *   prevents the user from selecting more than three barriers.
+ *
+ * handleSubmit()
+ * Input:
+ *   The profile answers and fitness questionnaire answers.
+ * Output:
+ *   Sends the completed answers to the backend API. If successful,
+ *   the user is redirected to the homepage. If unsuccessful, an error
+ *   message is displayed.
+ *
+ * Data Structures:
+ *   Arrays store multiple selections, including fitness goals,
+ *   workout preferences, and exercise barriers.
+ *   The answers object combines profile and fitness information before
+ *   it is sent to the backend.
+ *
+ * Algorithm:
+ *   The selection functions use an array-toggle algorithm. The includes()
+ *   method checks whether an item is selected. The filter() method removes
+ *   an existing item, and the spread operator adds a new item.
+ *   This approach prevents duplicate selections and is easy to maintain.
+ */
+
 import './Questionnaire.css';
 import {useState} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
@@ -45,10 +102,19 @@ function toggleWorkoutPreference(preference) {
 }
 
 
-async function handleSubmit() {
-    setSaveError('');
 
-    const answers = {
+/**
+ * Combines page 1 answers (profile) with page 2 answers and sends them to the backend.
+ * Uses credentials: 'include' so the login session cookie is sent.
+ * On success goes to the homepage; on failure shows the backend's error message.
+ * @async
+ * @returns {Promise<void>}
+ */
+
+    async function handleSubmit() {
+      setSaveError('');
+
+      const answers = {
         ...profile,
         fitness_level: fitnessLevel || null,
         fitness_goals: fitnessGoals,
@@ -93,6 +159,9 @@ function toggleFitnessGoals(goal) {
 return (
     <div className="questionnaire-page">
         <div className="questionnaire-container fitness-questionnaire">
+
+    
+
         <h1>Fitness Questionnaire</h1>
 
         {/* Question 5 */}
@@ -280,5 +349,6 @@ return (
  </div>
   );
 }
+
 
 export default FitnessQuestions;

@@ -1,4 +1,12 @@
 // Runs schema.sql against the database set in server/.env
+/**
+ * @file setup.js
+ * @author Angela Fernandez
+ * @since 2026-11-02
+ * @description Runs schema.sql against the database in .env to create all tables.
+ * Usage (from server/): npm run db:setup
+ */
+
 const fs = require("fs");
 const path = require("path");
 const mysql = require("mysql2/promise");
