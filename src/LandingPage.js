@@ -1,12 +1,43 @@
 import './LandingPage.css';
 import { Link } from 'react-router-dom';
 
+/**
+ * @file LandingPage.js
+ * @description Frontend landing page for the KineticKrew
+ * fitness tracking website. Provides an introduction to
+ * the platform, navigation links, sign-in and sign-up
+ * options, and information about workouts, features,
+ * community, and the website.
+ *
+ * @author May
+ * @date 2026-11-13
+ */
+
+/**
+ * LandingPage component for the KineticKrew fitness tracking system.
+ *
+ * Displays the initial page that users see when visiting
+ * the website. Includes a navigation bar, hero section,
+ * workout information, features, community section,
+ * about section, and footer.
+ *
+ * Uses React Router Link components to navigate users
+ * to the sign-in, sign-up, and landing pages.
+ * Navigation links also allow users to move between
+ * different sections of the landing page.
+ *
+ * @component
+ * @returns {React.JSX.Element} The landing page interface.
+ */
+
 function LandingPage() {
   return (
     <div className="landing-page" id="home">
 
+    {/* Navigation bar */}
       <nav className="landing-navibar">
 
+        {/* Website logo and name */}
         <div className="landing-name">
           <Link to="/landingpage">
             <span className="name-kinetic">Kinetic</span>
@@ -14,6 +45,7 @@ function LandingPage() {
           </Link>
         </div>
 
+        {/* Navigation links */}
         <div className="landing-navi-links">
           <a href="#home">Home</a>
           <a href="#workouts">Workouts</a>
@@ -22,6 +54,7 @@ function LandingPage() {
           <a href="#about">About Us</a>
         </div>
 
+        {/* Sign-in and sign-up buttons */}
         <div className="landing-auth-buttons">
           <Link to="/SignIn" className="landing-signin-button">
             Sign In
@@ -34,6 +67,7 @@ function LandingPage() {
 
       </nav>
 
+        {/* Hero section */}
       <section className="landing-hero">
 
         <div className="landing-hero-content">
@@ -58,6 +92,7 @@ function LandingPage() {
 
       </section>
 
+        {/* Workouts section */}
       <section id="workouts" className="landing-section">
         <h2>Explore Workouts</h2>
         <p>
@@ -66,6 +101,7 @@ function LandingPage() {
         </p>
       </section>
 
+        {/* Features section */}
       <section id="features" className="landing-section">
         <h2>Our Features</h2>
         <p>
@@ -74,6 +110,7 @@ function LandingPage() {
         </p>
       </section>
 
+        {/* Community section */}
       <section id="community" className="landing-section">
         <h2>Join Our Community</h2>
         <p>
@@ -82,6 +119,7 @@ function LandingPage() {
         </p>
       </section>
 
+        {/* About section */}
       <section id="about" className="landing-section">
         <h2>About KineticKrew</h2>
         <p>
@@ -90,6 +128,7 @@ function LandingPage() {
         </p>
       </section>
 
+        {/* Footer */}
       <footer className="landing-footer">
         <p>© 2026 KineticKrew. All rights reserved.</p>
       </footer>

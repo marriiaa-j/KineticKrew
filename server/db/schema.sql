@@ -16,26 +16,32 @@ INSERT IGNORE INTO exercises (name, muscle_group, equipment) VALUES
   ('Deadlift', 'Back', 'Barbell'),
   ('Pull-up', 'Back', 'Pull-up Bar');
 
+-- User Acct Table----
+CREATE TABLE IF NOT EXISTS users (
+  id              Int AUTO_INCREMENT PRIMARY KEY,
+  google_id       VARCHAR(255) UNIQUE,
+  email           VARCHAR(255) UNIQUE,
+  username        VARCHAR(15)  UNIQUE,
+  password_hash   VARCHAR(255),
+  display_name    VARCHAR(2550),
+  created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
   -- ===== Questionnaire =====
 CREATE TABLE IF NOT EXISTS questionnaire_responses (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL UNIQUE,
-  fitness_goal VARCHAR(30) NOT NULL,
-  preferred_style VARCHAR(30) NOT NULL,
-  hours_per_week DECIMAL(4,1),
-  available_days JSON,
-  has_worked_out_before BOOLEAN NOT NULL,
-  workouts_per_week TINYINT,
-  gym_visits_per_week TINYINT,
-  minutes_per_workout SMALLINT,
-  barriers JSON,
-  athleticism_rating TINYINT,
+  sex VARCHAR(10),
+  age TINYINT UNSIGNED,
   height_inches DECIMAL(4,1),
   weight_lbs DECIMAL(5,1),
-  age TINYINT,
-  gender VARCHAR(30),
+  fitness_level VARCHAR(20),
+  fitness_goals JSON,
+  days_per_week VARCHAR(20),
+  workout_preferences JSON,
+  barriers JSON,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CHECK (athleticism_rating BETWEEN 1 AND 10)
+  CHECK (age >= 13),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
