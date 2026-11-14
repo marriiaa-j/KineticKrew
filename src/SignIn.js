@@ -1,18 +1,26 @@
 import { useState} from "react";
 import {Link} from "react-router-dom";
 import "./SignIn.css";
-
+/**
+ * 
+ * @returns 
+ */
 function SignIn() {
     const [emailOrUsername, setEmailOrUsername] = useState("");
     const [ password, setPassword] = useState("");
-
+    /**
+     * 
+     * @param {*} event 
+     */
     function handleSubmit(event) {
         event.preventDefault();
 
         // updated for profile signin -CM 
         alert( `Signing in as ${emailOrUsername}`);
     }
-
+    /**
+     * 
+     */
     function handleGoogleLogin(){
        window.location.href = 'http://localhost:4000/auth/google';
     }

@@ -2,7 +2,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignIn.css";
-
+/**
+ * 
+ * @returns 
+ */
 function SignUp() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -11,14 +14,21 @@ function SignUp() {
     password: "",
     confirmPassword: "",
   });
-
+  /**
+   * 
+   * @param {*} event 
+   */
   function handleChange(event) {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   }
-
+  /**
+   * 
+   * @param {*} event 
+   * @returns 
+   */
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -29,7 +39,9 @@ function SignUp() {
 
     alert(`Account created for ${formData.username}`);
   }
-
+  /**
+   * 
+   */
   function handleGoogleLogin(){
        window.location.href = 'http://localhost:4000/auth/google/signup';
     }

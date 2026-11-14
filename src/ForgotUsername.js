@@ -2,9 +2,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignIn.css";
 
+/**
+ * 
+ * @returns 
+ */
 function ForgotUsername() {
   const [email, setEmail] = useState("");
-
+/**
+ * 
+ * @param {*} event 
+ */
   function handleSubmit(event) {
     event.preventDefault();
     alert(`Your username would be sent to ${email}`);
