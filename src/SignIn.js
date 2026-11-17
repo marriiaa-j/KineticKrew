@@ -57,7 +57,7 @@ function SignIn() {
         <main className="sign-page">
             <section className="signin-card">
                 <h1>Welcome Back!</h1>
-                <p className= "signin-card_subtitle">Sign in to your KineticKrew account</p>
+                <p className= "signin-subtitle">Sign in to your KineticKrew account</p>
 
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="emailOrUsername">Email or Username</label>

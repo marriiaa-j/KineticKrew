@@ -2,8 +2,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignIn.css";
 
+/**
+ * Component for handling forgot password functionality
+ * @returns 
+ */
 function ForgotPassword() {
   const [email, setEmail] = useState("");
+/**
+ * Handles the submission of the forgot password form
+ * @param {*} event 
+ */
 
   function handleSubmit(event) {
     event.preventDefault();
