@@ -27,11 +27,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams} from "react-router-dom";
 import "./SignIn.css";
-<<<<<<< HEAD
-/**
- * 
- * @returns 
-=======
 
 /**
  * Sign-up page component.
@@ -46,7 +41,6 @@ import "./SignIn.css";
  *
  * @component
  * @returns {JSX.Element} The sign-up form.
->>>>>>> 207a39605060d33da9a2fba2bcbe61eae82ddc85
  */
 function SignUp() {
   const navigate = useNavigate();
@@ -69,18 +63,12 @@ function SignUp() {
     password: "",
     confirmPassword: "",
   });
-<<<<<<< HEAD
-  /**
-   * 
-   * @param {*} event 
-=======
 
     /**
    * Updates the matching field in `formData` as the user types.
    * Works for every input because it uses the input's `name` attribute as the key.
    * @param {React.ChangeEvent<HTMLInputElement>} event - Input: the input's change event.
    * @returns {void} Output: none; updates `formData` state.
->>>>>>> 207a39605060d33da9a2fba2bcbe61eae82ddc85
    */
   function handleChange(event) {
     setFormData({
@@ -88,14 +76,6 @@ function SignUp() {
       [event.target.name]: event.target.value,
     });
   }
-<<<<<<< HEAD
-  /**
-   * 
-   * @param {*} event 
-   * @returns 
-   */
-  function handleSubmit(event) {
-=======
 
     /**
    * Validates the form, then sends it to the backend to create the account.
@@ -107,7 +87,6 @@ function SignUp() {
    *   on failure, sets an error to display.
    */
  async function handleSubmit(event) {
->>>>>>> 207a39605060d33da9a2fba2bcbe61eae82ddc85
     event.preventDefault();
     setError("");
 
@@ -145,15 +124,10 @@ function SignUp() {
       setError("Could not reach the server. Is it running?");
     }
   }
-<<<<<<< HEAD
-  /**
-   * 
-=======
 
     /**
    * Starts Google sign-up by sending the browser to the backend's Google route.
    * @returns {void} Output: browser redirect to `/auth/google/signup`.
->>>>>>> 207a39605060d33da9a2fba2bcbe61eae82ddc85
    */
   function handleGoogleLogin(){
        window.location.href = 'http://localhost:4000/auth/google/signup';

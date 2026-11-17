@@ -31,38 +31,14 @@ import "./SignIn.css";
 function SignIn() {
     const [emailOrUsername, setEmailOrUsername] = useState("");
     const [ password, setPassword] = useState("");
-<<<<<<< HEAD
-    /**
-     * 
-     * @param {*} event 
-     */
-=======
 
-      /**
-   * Handles the email/username and password form.
-   * Placeholder: shows an alert until manual sign-in is connected to the backend.
-   *  Input: the form's submit event.
-   * @returns Output: an alert naming the user.
-   */
->>>>>>> 207a39605060d33da9a2fba2bcbe61eae82ddc85
     function handleSubmit(event) {
         event.preventDefault();
 
         // updated for profile sign-in -CM 
         alert( `Signing in as ${emailOrUsername}`);
     }
-<<<<<<< HEAD
-    /**
-     * 
-     */
-=======
 
-      /**
-   * Starts Google sign-in by sending the browser to the backend's Google route.
-   * Input: none.
-   * @returns {void} Output: browser redirect to `/auth/google`.
-   */
->>>>>>> 207a39605060d33da9a2fba2bcbe61eae82ddc85
     function handleGoogleLogin(){
        window.location.href = 'http://localhost:4000/auth/google';
     }
