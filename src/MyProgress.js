@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Activity,
   BarChart3,
@@ -193,14 +194,14 @@ function MyProgress() {
           Log Activity
         </button>
 
-        <button>
-          <BarChart3 size={18} />
-          Measurements
-        </button>
+        <Link to="/measurements" className="progress-tab-button">
+            <BarChart3 size={18} />
+             Measurements
+            </Link>
 
         <button>
           <Activity size={18} />
-          Body Stats
+          Progress Stats
         </button>
 
         <button>

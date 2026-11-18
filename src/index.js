@@ -15,6 +15,7 @@ import Questionnaire from './Questionnaire';
 import Homepage from './Homepage';
 import FitnessQuestions from './FitnessQuestions';
 import MyProgress from './MyProgress';
+import Measurements from './Measurements';
 
 
 
@@ -66,7 +67,12 @@ const router = createBrowserRouter([
   { 
     path: '/myprogress',
     element: <MyProgress />,
-  }
+  },
+
+  {
+  path: "/measurements",
+  element: <Measurements />,
+},
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

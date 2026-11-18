@@ -22,6 +22,28 @@
   font-size: 13px;
 }
 
+.progress-tab-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #40336b;
+  border-radius: 8px;
+  color: #e9ddff;
+  background-color: #191333;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.progress-tab-button:hover {
+  color: #201132;
+  background-color: #b184ff;
+}
+
 .profile-area {
   display: flex;
   align-items: center;
