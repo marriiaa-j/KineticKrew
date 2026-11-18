@@ -299,7 +299,7 @@ app.get('/api/me', (req,res) => {
       req.logIn(user, (err) => {
         if (err) return next(err);
         // New users go to the questionnaire; returning user go home
-        res.redirect(mode === 'signup' ? `${CLIENT_URL}/questionnaire` : CLIENT_URL);
+        res.redirect(mode === 'signup' ? `${CLIENT_URL}/questionnaire` :  `${CLIENT_URL}/homepage`);
       });
     })(req, res, next);
   });
