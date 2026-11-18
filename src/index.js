@@ -14,6 +14,8 @@ import ForgotUsername from "./ForgotUsername";
 import Questionnaire from './Questionnaire';
 import Homepage from './Homepage';
 import FitnessQuestions from './FitnessQuestions';
+import MyProgress from './MyProgress';
+
 
 
 
@@ -59,6 +61,11 @@ const router = createBrowserRouter([
   {
   path: '/fitnessquestions',
   element: <FitnessQuestions />,
+  },
+
+  { 
+    path: '/myprogress',
+    element: <MyProgress />,
   }
 ]);
 
