@@ -7,13 +7,13 @@ const PREFERENCE_FILTERS = {
     "At-Home workouts": {equipments: ["bodyweight"]},
     "Cardio Workouts": {targetMuscles: ["cardiovascular system"], bodyparts: ["cardio"]},
     "Weight machines": {equipments: ["cable","leverage machine","tire"]},
-    "Yoga & Stretching": {equipments: ["bodyweight"]},
+    "Yoga": {equipments: ["bodyweight"]},
 };
 
 const GOAL_FILTERS ={
-    "Improve flexibility": {equipments: ["cardio"]}, // work in progress
-    "Build Muscle": {["cable","leverage machine","tire"]}, //work in progress
-    "Improve endurance": {targetMuscles: ["cardiovascular system"]} //needs a plan to build consistency and goals
+    "Flexibility": {equipments: ["cardio"]}, // work in progress
+    "Build muscle": {equipments:["cable","leverage machine","tire"]}, //work in progress
+    "Endurance": {targetMuscles: ["cardiovascular system"]} //needs a plan to build consistency and goals
 };
 
 const BARRIER_FILTERS = {

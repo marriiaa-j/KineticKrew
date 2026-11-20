@@ -10,6 +10,9 @@
 require("dotenv").config({ path: require("path").join(__dirname, ".env") });
 const db = require("./db");
 
+const { PREFERENCE_FILTERS, GOAL_FILTERS, BARRIER_FILTERS, addFilters } = require("./workoutFilters");
+const EXERCISEDB_URL = "https://oss.exercisedb.dev/api/v1/exercises";
+
 const express = require("express");
 const cors = require("cors");
 
@@ -232,6 +235,57 @@ app.get("/api/questionnaire/me", async (req, res) => {
     res.status(500).json({ error: "Failed to load questionnaire" });
   }
 });
+/**
+ * Returns workout based on answ mapped to filter
+ */
+
+app.get("/api/workouts/suggestions", async (req, res) => {
+  if(!req.user) return res.status(401).json({ error: "Not logged in" });                                                    
+
+  try {
+    const [rows] = await db.query( "SELECT * FROM questionnaire_responses WHERE user_id = ?", [req.user.id]);
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "Complete the questionnaire first" });
+    }
+    const answers = rows[0];
+
+    // Collect filters from each question
+    const filters = {};
+    addFilters(answers.workout_preferences || [], PREFERENCE_FILTERS, filters);
+    addFilters( answers.fitness_goals || [] , PREFERENCE_FILTERS, filters);
+    addFilters(answers.barriers || [], GOAL_FILTERS, filters);
+
+    // Build the URL
+    const params = new URLSearchParams({ limit: "10" });
+    for (const [key, values] of Object.entries(filters)) {
+      params.set(key,[...new Set(values)].join(","));
+    }
+    const url = `${EXERCISEDB_URL}?${params}`;
+    console.log("ExerciseDB URL:", url);
+
+    // Call ExerciseDB
+    const response = await fetch(url);
+    if (!response.ok) { 
+      return res.status(502).json({ error: "Exercise service unavailable" });
+    }
+    const body = await response.json();
+
+    // Send back only what React needs
+    const suggestions = body.data.map((ex) => ({
+      id: ex.exerciseId,
+      name:ex.name,
+      gifUrl: ex.gifUrl,
+      targetMuscles: ex.targetMuscles,
+      instructions: ex.instructions,
+    }));
+
+    res.json(suggestions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to load suggestions" });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
