@@ -10,7 +10,7 @@
 require("dotenv").config({ path: require("path").join(__dirname, ".env") });
 const db = require("./db");
 
-const { PREFERENCE_FILTERS, GOAL_FILTERS, BARRIER_FILTERS, addFilters } = require("./workoutFilters");
+const { PREFERENCE_FILTERS, GOAL_FILTERS, BARRIER_FILTERS, LEVEL_RULES, FOCUS_GROUPS, addFilters, toExercise } = require("./workoutFilters"); 
 const EXERCISEDB_URL = "https://oss.exercisedb.dev/api/v1/exercises";
 
 const express = require("express");

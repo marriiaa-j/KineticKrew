@@ -55,7 +55,7 @@ const FOCUS_GROUPS = {
 };
 
 /*
-*
+*JSDOC to-do
 */
 function addFilters(answers,lookup, filters){
     for(const answer of answers) {
@@ -69,6 +69,31 @@ function addFilters(answers,lookup, filters){
     }
 }
 
-module.exports = {PREFERENCE_FILTERS,GOAL_FILTERS,BARRIER_FILTERS,addFilters};
+/**
+ * Converts an ExerciseDB exercise into the app's exercise shape.
+ * @param {Object} ex - One exercise from ExerciseDB's `data` list.
+ * @param {Object} rules - The user's LEVEL_RULES entry.
+ * @param {boolean} timed - true for holds (seconds), false for reps.
+ * @returns {Object} { id, name, gifUrl, instructions, sets, reps or seconds }
+ */
+
+function toExercise(ex, rules, timed) {
+  const exercise = {
+    id: ex.exerciseId,
+    name: ex.name,
+    gifUrl: ex.gifUrl,
+    instructions: ex.instructions,
+    sets: rules.sets,
+  };
+
+  if (timed) {
+    exercise.seconds = rules.holdSeconds; 
+  } else {
+    exercise.reps = rules.reps;
+  }
+  return exercise;
+}
+
+module.exports = {PREFERENCE_FILTERS,GOAL_FILTERS,BARRIER_FILTERS,LEVEL_RULES,FOCUS_GROUPS, addFilters,toExercise};
 
 
