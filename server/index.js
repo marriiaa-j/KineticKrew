@@ -216,10 +216,6 @@ app.post("/api/questionnaire", async (req, res) => {
 
 /**
  * Returns the logged-in user's saved questionnaire answers.
- * @route GET /api/questionnaire/me
- * @returns {Object} 200 - the user's questionnaire row
- * @returns {Object} 401 - { error } if not logged in
- * @returns {Object} 404 - { error } if the user has not filled out the questionnaire
  */
 
 app.get("/api/questionnaire/me", async (req, res) => {
@@ -256,7 +252,7 @@ app.get("/api/workouts/suggestions", async (req, res) => {
     addFilters(answers.barriers || [], GOAL_FILTERS, filters);
 
     // Build the URL
-    const params = new URLSearchParams({ limit: "10" });
+    const params = new URLSearchParams({ limit: "13" });
     for (const [key, values] of Object.entries(filters)) {
       params.set(key,[...new Set(values)].join(","));
     }

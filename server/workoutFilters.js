@@ -1,6 +1,6 @@
 /** @file
  * Questionnaire answ are mapped to ExerciseDB filter values.
- * keys must match the asw saved in questionnaire_responses.
+ * keys must match the ans saved in questionnaire_responses.
   */
 
 const PREFERENCE_FILTERS = {
