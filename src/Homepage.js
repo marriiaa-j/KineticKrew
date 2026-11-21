@@ -1,3 +1,5 @@
+
+
 import {
   House,
   Dumbbell,
@@ -16,7 +18,7 @@ import {
   Sun,
   ChevronDown
 } from 'lucide-react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import './Homepage.css';
 import React, { useState } from 'react';
@@ -126,10 +128,10 @@ return (
             {sidebarOpen && <span>Dashboard</span>}
           </Link>
 
-          <a href="#workouts" className="homepage-navi-link">
+          <Link to="/workouts" className="homepage-navi-link">
             <Dumbbell size={22} />
             {sidebarOpen && <span>Workouts</span>}
-          </a>
+          </Link>
 
           <a href="#progress" className="homepage-navi-link">
             <ChartNoAxesColumn size={22} />

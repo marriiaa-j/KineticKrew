@@ -129,7 +129,7 @@ function SignUp() {
    * Starts Google sign-up by sending the browser to the backend's Google route.
    * @returns {void} Output: browser redirect to `/auth/google/signup`.
    */
-  function handleGoogleLogin(){
+  function handleGoogleSignup(){
        window.location.href = 'http://localhost:4000/auth/google/signup';
     }
 
@@ -248,7 +248,7 @@ function SignUp() {
         <button
           className="google-button"
           type="button"
-          onClick={handleGoogleLogin}
+          onClick={handleGoogleSignup}
         >
           Sign Up with Google
         </button>

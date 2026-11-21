@@ -24,7 +24,7 @@ function App() {
         <br />
         <Link to="/SignIn">Go to Sign In</Link>
         <br />
-        <Link to="/Questionnaire">Questionnaire</Link>
+        <Link to="/questionnaire">Questionnaire</Link>
         <br />
         <Link to="/signin">Go to Sign In</Link>
         <br />
