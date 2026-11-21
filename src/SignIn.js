@@ -20,7 +20,7 @@
  */
 
 import { useState} from "react";
-import {Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SignIn.css";
 
 /**
@@ -29,8 +29,10 @@ import "./SignIn.css";
  * @returns {JSX.Element} The sign-in form with a Google sign-in button.
  */
 function SignIn() {
+    const navigate = useNavigate();
     const [emailOrUsername, setEmailOrUsername] = useState("");
     const [ password, setPassword] = useState("");
+    
 
       /**
    * Handles the email/username and password form.
@@ -40,9 +42,11 @@ function SignIn() {
    */
     function handleSubmit(event) {
         event.preventDefault();
+        
 
         // updated for profile sign-in -CM 
         alert( `Signing in as ${emailOrUsername}`);
+           navigate('/homepage');
     }
 
       /**
@@ -105,6 +109,8 @@ function SignIn() {
                 <Link to="/signup">Sign up here</Link>
              </p> 
             </section>
+
+            
         </main>
     );
 }

@@ -1,3 +1,47 @@
+/*
+ * Module Name: Questionnaire Styles
+ * File: Questionnaire.css
+ * Date: November 13, 2026
+ * Programmer: Martha Jauregui
+ *
+ * Description:
+ * This stylesheet controls the appearance of the profile and fitness
+ * questionnaire pages. It defines the page background, questionnaire
+ * container, headings, buttons, input fields, error messages, spacing,
+ * responsive layouts, and selected-button states.
+ *
+ * Important Selectors:
+ *
+ * .questionnaire-page
+ *   Styles the outer page background and overall page spacing.
+ *
+ * .questionnaire-container
+ *   Styles the white questionnaire card, including its width, padding,
+ *   border radius, font, and text alignment.
+ *
+ * .question-block
+ *   Controls the spacing between individual questionnaire sections.
+ *
+ * .fitness-goals-buttons and .fitness-barriers
+ *   Arrange multiple-choice buttons into grid layouts.
+ *
+ * .selected
+ *   Changes the appearance of buttons selected by the user.
+ *
+ * .error-message
+ *   Styles validation and server error messages.
+ *
+ * Data Structures:
+ *   CSS custom properties in :root store reusable colors such as the
+ *   dark purple background, lavender selection color, and white container.
+ *
+ * Algorithm:
+ *   No computational algorithm is used in this stylesheet. CSS selectors,
+ *   grid layouts, flexbox, and media queries are used to organize and
+ *   style the interface.
+ */
+
+
 @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap');
 
 :root {

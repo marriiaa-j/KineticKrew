@@ -14,6 +14,9 @@ import ForgotUsername from "./ForgotUsername";
 import Questionnaire from './Questionnaire';
 import Homepage from './Homepage';
 import FitnessQuestions from './FitnessQuestions';
+import WorkoutPage from './workoutpage';
+import WorkoutDetail from './WorkoutDetail';
+
 
 
 
@@ -31,11 +34,11 @@ const router = createBrowserRouter([
   path: "/forgot-password",
   element: <ForgotPassword />,
  
-},
-{
+  },
+  {
   path: "/forgot-username",
   element: <ForgotUsername />,
-},
+  },
   {
   path: "/signup",
   element: <SignUp />,
@@ -43,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "/homepage",
     element: <Homepage/>,
+  },
+  {
+  path: "/workouts",
+  element: <WorkoutPage />,
   },
   {
     path: "/signin",
@@ -55,7 +62,11 @@ const router = createBrowserRouter([
   {
   path: '/fitnessquestions',
   element: <FitnessQuestions />,
-  }
+  },
+  {
+  path: '/workout/:workoutName',
+  element: <WorkoutDetail />,
+},
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
