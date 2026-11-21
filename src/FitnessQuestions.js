@@ -138,7 +138,7 @@ function toggleWorkoutPreference(preference) {
         return;
     }
 
-    navigate('/homepage');
+    navigate('/workoutpage'); //Changed CM 
         } catch (err) {
         setSaveError('Could not reach the server. Is the backend running?');
         }

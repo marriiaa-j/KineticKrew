@@ -32,6 +32,8 @@ function App() {
         <br />
         <Link to="/homepage">Homepage</Link>
         <br />
+        <Link to="/workouts">Workouts</Link>
+        <br />
         
       </header>
     </div>
