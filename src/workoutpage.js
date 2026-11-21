@@ -13,7 +13,8 @@ import {
   Search,
   Bell,
   UserRound,
-  ChevronDown
+  ChevronDown,
+  Subtitles
 } from 'lucide-react';
 
 import './Homepage.css';
@@ -34,14 +35,13 @@ function WorkoutPage() { // This is the main component for the Workout Page
 
    const bodyFocusWorkouts = [
   {
+    id:'upper',
     title: 'Upper Body',
     category: 'Strength',
-    description: 'Arms · Chest · Back',
+    Subtitles: 'Arms · Chest · Back',
     image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e',
     exercises: [
-    { name: 'Push-Ups', duration: '3 sets of 10' },
-    { name: 'Dumbbell Rows', duration: '3 sets of 12' },
-    { name: 'Shoulder Press', duration: '3 sets of 10' }
+    { id:'01qpYSe', name:'push-up', gifUrl:'...', sets:3, reps:10, instruction:ex.instruction}
   ]
   },
   {

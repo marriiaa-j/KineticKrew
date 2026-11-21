@@ -350,5 +350,4 @@ return (
   );
 }
 
-
 export default FitnessQuestions;
